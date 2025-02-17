@@ -8,3 +8,6 @@ spring:
     hibernate:
       ddl-auto: create-drop
     show-sql: false
+
+notify-service:
+  url: http://localhost:8700/notify

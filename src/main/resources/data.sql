@@ -1,6 +1,6 @@
-INSERT INTO vulnerability(score, deleted, title, product)
-VALUES('1', false, 'Vuln-1', 'Laravel');
-INSERT INTO vulnerability(score, deleted, title, product)
-VALUES('3', true, 'Vuln-3', 'Laravel');
-INSERT INTO vulnerability(score, deleted, title, product)
-VALUES('2', false, 'Vuln-2', 'Laravel');
+INSERT INTO ordered(quantity, product)
+VALUES('10', 'Laravel1');
+INSERT INTO ordered(quantity, product)
+VALUES('20', 'Laravel2');
+INSERT INTO ordered(quantity, product)
+VALUES('30', 'Laravel3');
