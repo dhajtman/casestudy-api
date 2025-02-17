@@ -4,28 +4,27 @@
 - Spring Boot version: 3.0.6
 
 ## Data
-Example of a Vulnerability data JSON object:
+Example of a Ordered data JSON object:
 ```json
 {
     "id":1,
+       
+    "quantity":"6",
     
-    "title":"XSS Vulnerability",
-    
-    "score":"6.9",
-    
-    "product":"WordPress",
-
-    "deleted": false
+    "product":"WordPress"
 }
 ```
+
+## Case study
+![img.png](img.png)
 
 ## Requirements
 Assume there is ordered database and you want to create a REST API to access them.
 
 
-You have to implement `/ordered` REST endpoint for following 3 operations.
+You have to implement `/order` REST endpoint for following 3 operations.
 
-`GET` request to `/ordered/{id}`:
+`GET` request to `/order/{id}`:
 * return the ordered with given id and status code 200
 * if the requested ordered doesn't exist, then status code 404 should be returned
 
@@ -34,11 +33,12 @@ You have to implement `/ordered` REST endpoint for following 3 operations.
 * by "deleted" means, the ordered is logically deleted - not completely removed from database.
 * if the ordered doesn't exist in the database it should return status code 404
 
-
 `GET` request to `/ordered/search/{product}?orderBy={sortBy)`:
 * return the vulnerabilities filtered by product and sorted by given column with status code 200
 * when the given ordered by column doesn't exist, return status code 400
- 
+
+`POST` request to `/order`:
+
 `Test writing`
 
 In addition to implementing the REST endpoints, you are supposed to write several(at least 5) unit tests to test your implementation.
