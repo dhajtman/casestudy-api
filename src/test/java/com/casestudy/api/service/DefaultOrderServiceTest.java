@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -25,6 +26,7 @@ public class DefaultOrderServiceTest {
     private NotifyService notifyService;
 
     @Test
+    @DirtiesContext
     public void testAsyncCreate() throws InterruptedException, ExecutionException {
         when(notifyService.notify(any(Ordered.class))).thenReturn(ResponseEntity.ok().build());
 
@@ -41,6 +43,7 @@ public class DefaultOrderServiceTest {
     }
 
     @Test
+    @DirtiesContext
     public void testGetAll() {
         List<Ordered> orderedList = orderService.getAllOrder();
         Assertions.assertEquals(3, orderedList.size());

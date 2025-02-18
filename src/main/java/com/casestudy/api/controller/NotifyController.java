@@ -1,9 +1,12 @@
 package com.casestudy.api.controller;
 
 import com.casestudy.api.model.Ordered;
+import com.casestudy.api.rest.NotifyResponse;
+import com.casestudy.api.rest.OrderResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,10 +20,10 @@ public class NotifyController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.OK)
-  public String notify(@RequestBody Ordered ordered) {
+  public ResponseEntity<NotifyResponse> notify(@RequestBody Ordered ordered) {
 
     logger.info("Notified of {}", ordered.getProduct());
 
-    return "Notified";
+    return new ResponseEntity<>(new NotifyResponse("Notified: " + ordered.getProduct()), HttpStatus.OK);
   }
 }

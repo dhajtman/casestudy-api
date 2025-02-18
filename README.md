@@ -22,22 +22,16 @@ Example of a Ordered data JSON object:
 Assume there is ordered database and you want to create a REST API to access them.
 
 
-You have to implement `/order` REST endpoint for following 3 operations.
+Base on case study implement `/order` REST endpoint.
 
 `GET` request to `/order/{id}`:
-* return the ordered with given id and status code 200
-* if the requested ordered doesn't exist, then status code 404 should be returned
+* return the order with given id
 
 `DELETE` request to `/ordered/{id}`:
-* delete the ordered with give id and return status code 200
-* by "deleted" means, the ordered is logically deleted - not completely removed from database.
-* if the ordered doesn't exist in the database it should return status code 404
-
-`GET` request to `/ordered/search/{product}?orderBy={sortBy)`:
-* return the vulnerabilities filtered by product and sorted by given column with status code 200
-* when the given ordered by column doesn't exist, return status code 400
+* delete the order with give id
 
 `POST` request to `/order`:
+* create order
 
 `Test writing`
 

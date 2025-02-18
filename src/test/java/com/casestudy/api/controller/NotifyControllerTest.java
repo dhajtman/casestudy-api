@@ -30,5 +30,6 @@ class NotifyControllerTest {
                 .andReturn().getResponse().getContentAsString();
 
         Assertions.assertNotNull(response);
+        Assertions.assertTrue(response.contains("Java"));
     }
 }
