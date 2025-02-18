@@ -1,53 +1,50 @@
 package com.casestudy.api.service.impl;
 
-import com.casestudy.api.exception.BadRequestException;
 import com.casestudy.api.model.Ordered;
-import com.casestudy.api.repository.OrderRepository;
+import com.casestudy.api.service.DatabaseService;
+import com.casestudy.api.service.NotifyService;
 import com.casestudy.api.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.concurrent.CompletableFuture;
 
 @Service
-@Transactional(readOnly = true)
 public class DefaultOrderService implements OrderService {
-  private final OrderRepository orderRepository;
 
-  @Autowired
-  DefaultOrderService(OrderRepository orderRepository) {
-    this.orderRepository = orderRepository;
-  }
+    @Autowired
+    private DatabaseService databaseService;
 
-  @Override
-  public List<Ordered> getAllOrder() {
-    return new ArrayList<>(orderRepository.findAll());
-  }
+    @Autowired
+    private NotifyService notifyService;
 
-
-  @Override
-  @Transactional(readOnly = false, propagation= Propagation.REQUIRED)
-  public Ordered createNewOrder(Ordered ordered) {
-    if (ordered.getProduct() == null) {
-      throw new BadRequestException("The Product must be provided when creating a new Order");
+    @Override
+    public List<Ordered> getAllOrder() {
+        return databaseService.getAllOrder();
     }
 
-    return orderRepository.save(ordered);
-  }
+    @Override
+    @Async
+    public CompletableFuture<Ordered> createNewOrder(Ordered ordered) throws InterruptedException {
+        Thread.sleep(2000); // simulating long term operation
+        Ordered created = databaseService.createNewOrder(ordered);
+        ResponseEntity<String> response = notifyService.notify(ordered);
+        return CompletableFuture.completedFuture(created);
+    }
 
-  @Override
-  public Optional<Ordered> getOrderById(Long id) {
-    return orderRepository.findById(id);
-  }
+    @Override
+    public Optional<Ordered> getOrderById(Long id) {
+        return databaseService.getOrderById(id);
+    }
 
-  @Override
-  @Transactional(readOnly = false, propagation= Propagation.REQUIRED)
-  public void deleteById(Long id) {
-    orderRepository.deleteById(id);
-  }
+    @Override
+    @Async
+    public void deleteById(Long id) throws InterruptedException {
+        Thread.sleep(2000); // simulating long term operation
+        databaseService.deleteById(id);
+    }
 }

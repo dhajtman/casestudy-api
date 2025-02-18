@@ -10,4 +10,4 @@ spring:
     show-sql: false
 
 notify-service:
-  url: http://localhost:8700/notify
+  url: http://localhost:8000/notify

@@ -1,9 +1,8 @@
 package com.casestudy.api.rest;
 
-import com.casestudy.api.exception.ServiceBTimeoutException;
-import com.casestudy.api.exception.ServiceBUnreachableException;
+import com.casestudy.api.exception.NotifyServiceTimeoutException;
+import com.casestudy.api.exception.NotifyServiceUnreachableException;
 import com.casestudy.api.model.Ordered;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
@@ -58,7 +56,7 @@ public class RestTemplateResponseErrorHandlerIntegrationTest {
 
         HttpEntity<Ordered> request = new HttpEntity<>(new Ordered());
 
-        Assertions.assertThrows(ServiceBTimeoutException.class, () -> {
+        Assertions.assertThrows(NotifyServiceTimeoutException.class, () -> {
             ResponseEntity<String> response = restTemplate.exchange("/notify", HttpMethod.POST, request, String.class);
         });
     }
@@ -75,8 +73,24 @@ public class RestTemplateResponseErrorHandlerIntegrationTest {
 
         HttpEntity<Ordered> request = new HttpEntity<>(new Ordered());
 
-        Assertions.assertThrows(ServiceBUnreachableException.class, () -> {
+        Assertions.assertThrows(NotifyServiceUnreachableException.class, () -> {
             ResponseEntity<String> response = restTemplate.exchange("/notify", HttpMethod.POST, request, String.class);
         });
+    }
+
+    @Test
+    public void givenRemoteApiCall_success() {
+        Assertions.assertNotNull(this.builder);
+        Assertions.assertNotNull(this.server);
+
+        this.server
+                .expect(ExpectedCount.once(), requestTo("/notify"))
+                .andExpect(method(HttpMethod.POST))
+                .andRespond(withStatus(HttpStatus.OK));
+
+        HttpEntity<Ordered> request = new HttpEntity<>(new Ordered());
+
+        ResponseEntity<String> response = restTemplate.exchange("/notify", HttpMethod.POST, request, String.class);
+        Assertions.assertNotNull(response);
     }
 }

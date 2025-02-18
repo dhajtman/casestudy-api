@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
 @ResponseStatus(HttpStatus.REQUEST_TIMEOUT)
-public class ServiceBTimeoutException extends HttpClientErrorException {
+public class NotifyServiceTimeoutException extends HttpClientErrorException {
 
-  public ServiceBTimeoutException(HttpStatusCode httpStatusCode) {
+  public NotifyServiceTimeoutException(HttpStatusCode httpStatusCode) {
       super(httpStatusCode);
   }
 }

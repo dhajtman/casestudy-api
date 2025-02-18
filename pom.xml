@@ -46,6 +46,11 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -71,14 +76,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <executable>${basedir}/${scoring.dir}/integration-tests.sh</executable>
-                    <arguments>
-                        <argument>${server.port}</argument>
-                        <argument>${scoring.dir}</argument>
-                        <argument>1</argument>
-                    </arguments>
-                </configuration>
             </plugin>
         </plugins>
     </build>

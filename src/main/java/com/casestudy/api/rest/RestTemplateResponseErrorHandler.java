@@ -1,11 +1,10 @@
 package com.casestudy.api.rest;
 
-import com.casestudy.api.exception.ServiceBTimeoutException;
-import com.casestudy.api.exception.ServiceBUnreachableException;
+import com.casestudy.api.exception.NotifyServiceTimeoutException;
+import com.casestudy.api.exception.NotifyServiceUnreachableException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResponseErrorHandler;
 
 import java.io.IOException;
@@ -24,12 +23,12 @@ public class RestTemplateResponseErrorHandler implements ResponseErrorHandler {
         if (httpResponse.getStatusCode().is5xxServerError()) {
             //Handle SERVER_ERROR
             if (httpResponse.getStatusCode() == HttpStatus.SERVICE_UNAVAILABLE) {
-                throw new ServiceBUnreachableException(httpResponse.getStatusCode());
+                throw new NotifyServiceUnreachableException(httpResponse.getStatusCode());
             }
         } else if (httpResponse.getStatusCode().is4xxClientError()) {
             //Handle CLIENT_ERROR
             if (httpResponse.getStatusCode() == HttpStatus.REQUEST_TIMEOUT) {
-                throw new ServiceBTimeoutException(httpResponse.getStatusCode());
+                throw new NotifyServiceTimeoutException(httpResponse.getStatusCode());
             }
         }
     }

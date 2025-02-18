@@ -4,14 +4,14 @@ import com.casestudy.api.model.Ordered;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public interface OrderService {
+    List<Ordered> getAllOrder();
 
-  List<Ordered> getAllOrder();
+    CompletableFuture<Ordered> createNewOrder(Ordered ordered) throws InterruptedException;
 
-  Ordered createNewOrder(Ordered ordered);
+    Optional<Ordered> getOrderById(Long id);
 
-  Optional<Ordered> getOrderById(Long id);
-
-  void deleteById(Long id);
+    void deleteById(Long id) throws InterruptedException;
 }

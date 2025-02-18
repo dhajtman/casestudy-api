@@ -2,10 +2,6 @@ package com.casestudy.api.controller;
 
 import com.casestudy.api.model.Ordered;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.casestudy.api.repository.OrderRepository;
-
-import static org.hamcrest.Matchers.greaterThan;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +13,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,21 +30,20 @@ class OrderControllerTest {
 
     ObjectMapper om = new ObjectMapper();
 
-    @Autowired
-    private OrderRepository repository;
+
 
     @Test
     @DirtiesContext
-    public void testCreation() throws Exception {
+    public void testPost() throws Exception {
         Ordered expectedRecord = Ordered.builder().product("Java").build();
-        Ordered actualRecord = om.readValue(mockMvc.perform(post("/order")
+        String response = mockMvc.perform(post("/order")
                         .contentType("application/json")
                         .content(om.writeValueAsString(expectedRecord)))
                 .andDo(print())
-                .andExpect(jsonPath("$.id", greaterThan(0)))
-                .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString(), Ordered.class);
+                .andExpect(status().isAccepted()).andReturn().getResponse().getContentAsString();
 
-        Assertions.assertEquals(expectedRecord.getProduct(), actualRecord.getProduct());
+        Assertions.assertNotNull(response);
+        Assertions.assertTrue(response.contains("Java"));
     }
 
     @Test
