@@ -16,7 +16,7 @@ Example of a Ordered data JSON object:
 ```
 
 ## Case study
-![img.png](img.png)
+![case_study.png](case_study.png)
 
 ## Requirements
 Assume there is ordered database and you want to create a REST API to access them.
@@ -37,6 +37,8 @@ Base on case study implement `/order` REST endpoint.
 
 In addition to implementing the REST endpoints, you are supposed to write several(at least 5) unit tests to test your implementation.
 
+## Case study sketch
+![sketch.png](sketch.png)
 
 ## Commands
 - run: 
