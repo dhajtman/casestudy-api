@@ -39,6 +39,7 @@ In addition to implementing the REST endpoints, you are supposed to write severa
 
 ## Case study sketch
 ![sketch.png](sketch.png)
+![img.png](img.png)
 
 ## Commands
 - run: 
