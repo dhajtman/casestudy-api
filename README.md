@@ -18,11 +18,54 @@ Example of a Ordered data JSON object:
 ## Case study
 ![case_study.png](case_study.png)
 
-## Requirements
+## Case study sketch
+![sketch.png](sketch.png)
+
+## Implementation details
 Assume there is ordered database and you want to create a REST API to access them.
 
+Transactional boundaries are span across [DatabaseService implementation class](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/service/impl/DefaultDatabaseService.java) and configured per method similar to
+```java
+@Transactional(readOnly = false, propagation= Propagation.REQUIRED)
+    public Ordered createNewOrder(Ordered ordered) {
+    return orderRepository.save(ordered);
+}
+```
 
-Base on case study implement `/order` REST endpoint.
+Threading model used are simple asynchronous methods in [OrderService implementation class](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/service/impl/DefaultOrderService.java) configured per method similar to
+```java
+@Async
+public CompletableFuture<Ordered> createNewOrder(Ordered ordered) throws InterruptedException {
+    Thread.sleep(2000); // simulating long term operation
+    Ordered created = databaseService.createNewOrder(ordered);
+    ResponseEntity<String> response = notifyService.notify(ordered);
+    return CompletableFuture.completedFuture(created);
+}
+```
+
+Network communication issues between Service A and Service B are handled with [custom implementation of ResponseErrorHandler](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/rest/RestTemplateResponseErrorHandler.java)
+using custom implemented client ([NotifyServiceTimeoutException](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/exception/NotifyServiceTimeoutException.java)) and server ([NotifyServiceUnreachableException](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/exception/NotifyServiceUnreachableException.java)) exceptions
+and processed by Spring Boot Retry mechanism in [NotifyService implementation class](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/service/impl/DefaultNotifyService.java)
+```java
+@Retryable(retryFor = {NotifyServiceUnreachableException.class, NotifyServiceTimeoutException.class})
+public ResponseEntity<String> notify(Ordered ordered) {
+    HttpEntity<Ordered> request = new HttpEntity<>(ordered);
+    String url = environment.getProperty("notify-service.url", "http://localhost:8000/notify");
+    return restTemplate.exchange(url, HttpMethod.POST, request, String.class);
+}
+
+@Recover
+public ResponseEntity<String> notifyFailed(Ordered ordered) {
+    logger.error("Notify failed");
+    return ResponseEntity.unprocessableEntity().build();
+}
+```
+
+
+Base on case study were implemented `/order` REST endpoint.
+
+`POST` request to `/order`:
+* create order
 
 `GET` request to `/order/{id}`:
 * return the order with given id
@@ -30,15 +73,9 @@ Base on case study implement `/order` REST endpoint.
 `DELETE` request to `/ordered/{id}`:
 * delete the order with give id
 
-`POST` request to `/order`:
-* create order
-
 `Test writing`
 
-In addition to implementing the REST endpoints, you are supposed to write several(at least 5) unit tests to test your implementation.
-
-## Case study sketch
-![sketch.png](sketch.png)
+In addition to implementing the REST endpoints, were written unit tests to test implementation.
 
 ## Commands
 - run: 
