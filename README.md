@@ -158,7 +158,7 @@ mvn clean test
 ```bash
 docker build -t case-study-docker . 
 ```
-- docker run image:
+- docker run detached image:
 ```bash
-docker run -p 8000:8000 case-study-docker:latest
+docker run -d -p 8000:8000 case-study-docker:latest
 ```
