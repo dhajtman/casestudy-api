@@ -139,7 +139,7 @@ Base on case study were implemented `/order` REST endpoint.
 
 `Test writing`
 
-In addition to implementing the REST endpoints, were written unit tests to test implementation.
+In addition to implementing the REST endpoints, were written unit and [functional tests](https://github.com/dhajtman/casestudy-api/blob/master/case_study_bruno_requests.json).
 
 ## Commands
 - run: 
