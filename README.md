@@ -76,7 +76,50 @@ public ResponseEntity<String> notifyFailed(Ordered ordered) {
 
 Various possible inconsistencies system failure may introduce could be handled by highest level of isolation and physical transaction per method. 
 
+Monitoring Service A could be achieved by Spring Boot Actuator endpoints, for example by activating liveness and readiness endpoints in [application.yml](https://github.com/dhajtman/casestudy-api/blob/master/src/main/resources/application.yml)
+```yaml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+      base-path: /actuator
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+```
+These endpoints can be used for kubernetes liveness and readiness probes
+```yaml
+livenessProbe:
+  httpGet:
+    path: /actuator/health/liveness
+    port: 8000
+    initialDelaySeconds: 3
+    periodSeconds: 3
+```
+Service A can also be monitored and restarted by separate service with exposed [RestartController](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/controller/RestartController.java) restartApp method.
 
+Additionally, when running Service A like Linux service in case of failure it can be restarted by linux underlying operating system automatically
+```
+[Unit]
+Description=Application #use your application name
+
+[Service]
+User=root #use user with restricted permissions
+Type=simple
+ExecStart=/usr/bin/java -jar /path/to/jar #change java path and application path
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
 
 ## Implemented APIs
 Assume there is ordered database and you want to create a REST API to access them.
