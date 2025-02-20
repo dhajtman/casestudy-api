@@ -154,3 +154,11 @@ mvn clean install
 ```bash
 mvn clean test
 ```
+- docker build image:
+```bash
+docker build -t case-study-docker . 
+```
+- docker run image:
+```bash
+docker run -p 8000:8000 case-study-docker:latest
+```
