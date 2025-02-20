@@ -5,6 +5,7 @@ import com.casestudy.api.repository.OrderRepository;
 import com.casestudy.api.service.DatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +30,7 @@ public class DefaultDatabaseService implements DatabaseService {
 
 
   @Override
-  @Transactional(readOnly = false, propagation= Propagation.REQUIRED)
+  @Transactional(readOnly = false, propagation= Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
   public Ordered createNewOrder(Ordered ordered) {
       return orderRepository.save(ordered);
   }
@@ -40,7 +41,7 @@ public class DefaultDatabaseService implements DatabaseService {
   }
 
   @Override
-  @Transactional(readOnly = false, propagation= Propagation.REQUIRED)
+  @Transactional(readOnly = false, propagation= Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
   public void deleteById(Long id) {
     orderRepository.deleteById(id);
   }

@@ -22,17 +22,26 @@ Example of a Ordered data JSON object:
 ![sketch.png](sketch.png)
 
 ## Implementation details
-Assume there is ordered database and you want to create a REST API to access them.
+Implementation details focused on:
 
-Transactional boundaries are span across [DatabaseService implementation class](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/service/impl/DefaultDatabaseService.java) and configured per method similar to
+* Transactional boundaries are span across [DatabaseService implementation class](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/service/impl/DefaultDatabaseService.java) and configured per method similar to
 ```java
-@Transactional(readOnly = false, propagation= Propagation.REQUIRED)
+@Transactional(readOnly = false, propagation= Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
     public Ordered createNewOrder(Ordered ordered) {
     return orderRepository.save(ordered);
 }
 ```
+In case above logical transaction is enforced per method and isolation level prevents prevents dirty, and non-repeatable reads.
+If highest level of isolation and physical transaction per method is required below settings can be applied
+```java
+@Transactional(readOnly = false, propagation= Propagation.REQUIRED_NEW, isolation = Isolation.SERIALIZABLE)
+    public Ordered createNewOrder(Ordered ordered) {
+    return orderRepository.save(ordered);
+}
+```
+This setting helps when crash might introduce to the system in various moments but will affect performance.
 
-Threading model used are simple asynchronous methods in [OrderService implementation class](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/service/impl/DefaultOrderService.java) configured per method similar to
+* Threading model used are simple asynchronous methods in [OrderService implementation class](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/service/impl/DefaultOrderService.java) configured per method similar to
 ```java
 @Async
 public CompletableFuture<Ordered> createNewOrder(Ordered ordered) throws InterruptedException {
@@ -42,8 +51,10 @@ public CompletableFuture<Ordered> createNewOrder(Ordered ordered) throws Interru
     return CompletableFuture.completedFuture(created);
 }
 ```
+We've customized the ThreadPoolTaskExecutor with specific values for core pool size, maximum pool size, and task queue capacity.
+Adjusting these values based on your application's requirements and available resources is required.
 
-Network communication issues between Service A and Service B are handled with [custom implementation of ResponseErrorHandler](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/rest/RestTemplateResponseErrorHandler.java)
+* Network communication issues between Service A and Service B are handled with [custom implementation of ResponseErrorHandler](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/rest/RestTemplateResponseErrorHandler.java)
 using custom implemented client ([NotifyServiceTimeoutException](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/exception/NotifyServiceTimeoutException.java)) and server ([NotifyServiceUnreachableException](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/exception/NotifyServiceUnreachableException.java)) exceptions
 and processed by Spring Boot Retry mechanism in [NotifyService implementation class](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/service/impl/DefaultNotifyService.java)
 ```java
@@ -61,6 +72,14 @@ public ResponseEntity<String> notifyFailed(Ordered ordered) {
 }
 ```
 
+* Service A crashing while processing a User Request
+
+Various possible inconsistencies system failure may introduce could be handled by highest level of isolation and physical transaction per method. 
+
+
+
+## Implemented APIs
+Assume there is ordered database and you want to create a REST API to access them.
 
 Base on case study were implemented `/order` REST endpoint.
 
