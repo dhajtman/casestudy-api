@@ -3,6 +3,12 @@
 - Maven version: 3.*
 - Spring Boot version: 3.0.6
 
+## Case study
+![case_study.png](case_study.png)
+
+## Case study sketch
+![sketch.png](sketch.png)
+
 ## Data
 Example of a Ordered data JSON object:
 ```json
@@ -14,12 +20,6 @@ Example of a Ordered data JSON object:
     "product":"WordPress"
 }
 ```
-
-## Case study
-![case_study.png](case_study.png)
-
-## Case study sketch
-![sketch.png](sketch.png)
 
 ## Implementation details
 Implementation details focused on:
