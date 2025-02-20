@@ -106,7 +106,9 @@ livenessProbe:
 ```
 Service A can also be monitored and restarted by separate service with exposed [RestartController](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/controller/RestartController.java) restartApp method.
 
-Additionally, when running Service A like Linux service in case of failure it can be restarted by linux underlying operating system automatically
+When running Service A like Linux service it can be restarted by Linux underlying operating system automatically in case of failure.
+
+New Linux service created in `/etc/systemd/system`
 ```
 [Unit]
 Description=Application #use your application name
