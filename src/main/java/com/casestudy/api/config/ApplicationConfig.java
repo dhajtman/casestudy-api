@@ -1,5 +1,6 @@
 package com.casestudy.api.config;
 
+import com.casestudy.api.Application;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +32,6 @@ public class ApplicationConfig implements AsyncConfigurer {
 
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-        return new CustomAsyncExceptionHandler();
+        return new CustomAsyncExceptionHandler(Application.getContext());
     }
 }

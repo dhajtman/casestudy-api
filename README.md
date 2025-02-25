@@ -77,6 +77,35 @@ public CompletableFuture<Ordered> createNewOrder(Ordered ordered) throws Interru
 ```
 We've customized the ThreadPoolTaskExecutor with specific values for core pool size, maximum pool size, and task queue capacity.
 Adjusting these values based on your application's requirements and available resources is required.
+```java
+@Bean(name = "asyncExecutor")
+public Executor getAsyncExecutor() {
+    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+    executor.setCorePoolSize(3); // Set the core pool size
+    executor.setMaxPoolSize(10); // Set the maximum pool size
+    executor.setQueueCapacity(25); // Set the capacity of the task queue
+    executor.setThreadNamePrefix("custom-async-"); // Set the thread name prefix
+    executor.initialize();
+    return executor;
+}
+```
+
+If RuntimeException is thrown during async processing liveness and readiness state is updated in CustomAsyncExceptionHandler class
+```java
+    @Override
+    public void handleUncaughtException(final Throwable throwable, final Method method, final Object... obj) {
+        logger.warn("Exception message - {}", throwable.getMessage());
+
+        for (final Object param : obj) {
+            logger.warn("Param - {}", param);
+        }
+
+        if (throwable instanceof RuntimeException) {
+            AvailabilityChangeEvent.publish(this.eventPublisher, throwable, LivenessState.BROKEN);
+            AvailabilityChangeEvent.publish(this.eventPublisher, throwable, ReadinessState.REFUSING_TRAFFIC);
+        }
+    }
+```
 
 * Network communication issues between Service A and Service B are handled with [custom implementation of ResponseErrorHandler](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/rest/RestTemplateResponseErrorHandler.java)
 using custom implemented client ([NotifyServiceTimeoutException](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/exception/NotifyServiceTimeoutException.java)) and server ([NotifyServiceUnreachableException](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/exception/NotifyServiceUnreachableException.java)) exceptions
