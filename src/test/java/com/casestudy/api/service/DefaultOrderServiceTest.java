@@ -1,8 +1,10 @@
 package com.casestudy.api.service;
 
 import com.casestudy.api.model.Ordered;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -28,7 +30,7 @@ public class DefaultOrderServiceTest {
     @Test
     @DirtiesContext
     public void testAsyncCreate() throws InterruptedException, ExecutionException {
-        when(notifyService.notify(any(Ordered.class))).thenReturn(ResponseEntity.ok().build());
+        when(notifyService.orderNotify()).thenReturn(ResponseEntity.ok().build());
 
         Ordered order = Ordered.builder().product("Java").build();
         CompletableFuture<Ordered> completableFuture = orderService.createNewOrder(order);

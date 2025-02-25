@@ -9,6 +9,10 @@ public interface DatabaseService {
 
   List<Ordered> getAllOrder();
 
+  List<Ordered> getUnnoticedOrders();
+
+  void updateOrderNotified(Ordered ordered);
+
   Ordered createNewOrder(Ordered ordered);
 
   Optional<Ordered> getOrderById(Long id);

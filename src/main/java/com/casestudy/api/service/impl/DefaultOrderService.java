@@ -32,7 +32,7 @@ public class DefaultOrderService implements OrderService {
     public CompletableFuture<Ordered> createNewOrder(Ordered ordered) throws InterruptedException {
         Thread.sleep(2000); // simulating long term operation
         Ordered created = databaseService.createNewOrder(ordered);
-        ResponseEntity<String> response = notifyService.notify(ordered);
+        ResponseEntity<String> response = notifyService.orderNotify();
         return CompletableFuture.completedFuture(created);
     }
 

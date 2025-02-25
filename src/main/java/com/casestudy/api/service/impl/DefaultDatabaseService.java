@@ -28,6 +28,16 @@ public class DefaultDatabaseService implements DatabaseService {
     return new ArrayList<>(orderRepository.findAll());
   }
 
+  @Override
+  public List<Ordered> getUnnoticedOrders() {
+    return new ArrayList<>(orderRepository.findByNotifiedFalse());
+  }
+
+  @Override
+  public void updateOrderNotified(Ordered ordered) {
+    ordered.setNotified(true);
+    orderRepository.save(ordered);
+  }
 
   @Override
   @Transactional(readOnly = false, propagation= Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)

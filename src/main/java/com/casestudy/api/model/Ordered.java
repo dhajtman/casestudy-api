@@ -24,4 +24,5 @@ public class Ordered implements Serializable {
   private Long id;
   private String product;
   private int quantity;
+  private boolean notified;
 }
