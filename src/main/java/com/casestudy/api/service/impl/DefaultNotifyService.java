@@ -51,7 +51,6 @@ public class DefaultNotifyService implements NotifyService {
             String url = environment.getProperty("notify-service.url", "http://localhost:8000/notify");
 
             restTemplate.exchange(url, HttpMethod.POST, request, String.class);
-
             databaseService.updateOrderNotified(ordered);
         }
         return ResponseEntity.ok().build();

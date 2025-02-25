@@ -41,13 +41,37 @@ If highest level of isolation and physical transaction per method is required be
 ```
 This setting helps when crash might introduce to the system in various moments but will affect performance.
 
+Idempotent NotifyService implementation with retry and recover logic
+```java
+    @Override
+    @Retryable(retryFor = {NotifyServiceUnreachableException.class, NotifyServiceTimeoutException.class})
+    public ResponseEntity<String> orderNotify() {
+        List<Ordered> unnoticedOrders = databaseService.getUnnoticedOrders();
+
+        for (Ordered ordered: unnoticedOrders) {
+            HttpEntity<Ordered> request = new HttpEntity<>(ordered);
+            String url = environment.getProperty("notify-service.url", "http://localhost:8000/notify");
+
+            restTemplate.exchange(url, HttpMethod.POST, request, String.class);
+            databaseService.updateOrderNotified(ordered);
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @Recover
+    public ResponseEntity<String> notifyFailed(Ordered ordered) {
+        logger.error("Notify failed");
+        return ResponseEntity.unprocessableEntity().build();
+    }
+```
+
 * Threading model used are simple asynchronous methods in [OrderService implementation class](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/service/impl/DefaultOrderService.java) configured per method similar to
 ```java
 @Async
 public CompletableFuture<Ordered> createNewOrder(Ordered ordered) throws InterruptedException {
     Thread.sleep(2000); // simulating long term operation
     Ordered created = databaseService.createNewOrder(ordered);
-    ResponseEntity<String> response = notifyService.notify(ordered);
+    ResponseEntity<String> response = notifyService.notify();
     return CompletableFuture.completedFuture(created);
 }
 ```
