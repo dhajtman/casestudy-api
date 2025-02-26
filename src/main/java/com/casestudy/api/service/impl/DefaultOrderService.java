@@ -29,11 +29,10 @@ public class DefaultOrderService implements OrderService {
 
     @Override
     @Async
-    public CompletableFuture<Ordered> createNewOrder(Ordered ordered) throws InterruptedException {
-        Thread.sleep(2000); // simulating long term operation
+    public void createNewOrder(Ordered ordered) throws InterruptedException {
+        Thread.sleep(1000); // simulating long term operation
         Ordered created = databaseService.createNewOrder(ordered);
         ResponseEntity<String> response = notifyService.orderNotify();
-        return CompletableFuture.completedFuture(created);
     }
 
     @Override

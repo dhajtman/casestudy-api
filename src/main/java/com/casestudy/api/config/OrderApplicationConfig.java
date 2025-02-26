@@ -1,7 +1,8 @@
 package com.casestudy.api.config;
 
-import com.casestudy.api.Application;
+import com.casestudy.api.OrderApplication;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.retry.annotation.EnableRetry;
@@ -16,7 +17,14 @@ import java.util.concurrent.Executor;
 @EnableAsync
 @EnableRetry
 @EnableTransactionManagement
-public class ApplicationConfig implements AsyncConfigurer {
+public class OrderApplicationConfig implements AsyncConfigurer {
+
+    final private CustomAsyncExceptionHandler asyncExceptionHandler;
+
+    @Autowired
+    public OrderApplicationConfig(CustomAsyncExceptionHandler asyncExceptionHandler) {
+        this.asyncExceptionHandler = asyncExceptionHandler;
+    }
 
     @Override
     @Bean(name = "asyncExecutor")
@@ -32,6 +40,6 @@ public class ApplicationConfig implements AsyncConfigurer {
 
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-        return new CustomAsyncExceptionHandler(Application.getContext());
+        return asyncExceptionHandler;
     }
 }

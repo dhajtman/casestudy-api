@@ -33,15 +33,10 @@ public class DefaultOrderServiceTest {
         when(notifyService.orderNotify()).thenReturn(ResponseEntity.ok().build());
 
         Ordered order = Ordered.builder().product("Java").build();
-        CompletableFuture<Ordered> completableFuture = orderService.createNewOrder(order);
-
-        while (true) {
-            if (completableFuture.isDone()) {
-                Assertions.assertNotNull(completableFuture.get());
-                break;
-            }
-            Thread.sleep(1000);
-        }
+        orderService.createNewOrder(order);
+        Thread.sleep(2000);
+        List<Ordered> orderedList = orderService.getAllOrder();
+        Assertions.assertEquals(4, orderedList.size());
     }
 
     @Test

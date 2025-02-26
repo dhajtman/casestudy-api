@@ -1,5 +1,6 @@
 package com.casestudy.api.config;
 
+import com.casestudy.api.exception.RestartRequiredException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -7,9 +8,11 @@ import org.springframework.boot.availability.AvailabilityChangeEvent;
 import org.springframework.boot.availability.LivenessState;
 import org.springframework.boot.availability.ReadinessState;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
+@Component
 public class CustomAsyncExceptionHandler implements AsyncUncaughtExceptionHandler {
 
     private final Logger logger = LoggerFactory.getLogger(CustomAsyncExceptionHandler.class);
@@ -28,7 +31,7 @@ public class CustomAsyncExceptionHandler implements AsyncUncaughtExceptionHandle
             logger.warn("Param - {}", param);
         }
 
-        if (throwable instanceof RuntimeException) {
+        if (throwable instanceof RestartRequiredException) {
             AvailabilityChangeEvent.publish(this.eventPublisher, throwable, LivenessState.BROKEN);
             AvailabilityChangeEvent.publish(this.eventPublisher, throwable, ReadinessState.REFUSING_TRAFFIC);
         }

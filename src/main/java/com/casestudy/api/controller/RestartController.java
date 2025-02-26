@@ -1,6 +1,6 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.Application;
+import com.casestudy.api.OrderApplication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,6 +9,6 @@ public class RestartController {
 
     @PostMapping("/restart")
     public void restart() {
-        Application.restart();
+        OrderApplication.restart();
     }
 }

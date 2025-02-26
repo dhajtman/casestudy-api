@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 public interface OrderService {
     List<Ordered> getAllOrder();
 
-    CompletableFuture<Ordered> createNewOrder(Ordered ordered) throws InterruptedException;
+    void createNewOrder(Ordered ordered) throws InterruptedException;
 
     Optional<Ordered> getOrderById(Long id);
 

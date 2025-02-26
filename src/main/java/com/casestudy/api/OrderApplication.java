@@ -8,11 +8,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-public class Application {
+public class OrderApplication {
   private static ConfigurableApplicationContext context;
 
   public static void main(String[] args) {
-    SpringApplication application = new SpringApplication(Application.class);
+    SpringApplication application = new SpringApplication(OrderApplication.class);
     application.setBannerMode(Banner.Mode.OFF);
     context = application.run(args);
   }
@@ -22,7 +22,7 @@ public class Application {
 
     Thread thread = new Thread(() -> {
       context.close();
-      context = SpringApplication.run(Application.class, args.getSourceArgs());
+      context = SpringApplication.run(OrderApplication.class, args.getSourceArgs());
     });
 
     thread.setDaemon(false);
