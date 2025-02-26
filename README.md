@@ -68,11 +68,10 @@ Idempotent NotifyService implementation with retry and recover logic
 * Threading model used are simple asynchronous methods in [OrderService implementation class](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/service/impl/DefaultOrderService.java) configured per method similar to
 ```java
 @Async
-public CompletableFuture<Ordered> createNewOrder(Ordered ordered) throws InterruptedException {
-    Thread.sleep(2000); // simulating long term operation
+public void createNewOrder(Ordered ordered) throws InterruptedException {
+    Thread.sleep(1000); // simulating long term operation
     Ordered created = databaseService.createNewOrder(ordered);
     ResponseEntity<String> response = notifyService.notify();
-    return CompletableFuture.completedFuture(created);
 }
 ```
 We've customized the ThreadPoolTaskExecutor with specific values for core pool size, maximum pool size, and task queue capacity.
