@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.retry.annotation.EnableRetry;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.concurrent.Executor;
@@ -16,6 +20,7 @@ import java.util.concurrent.Executor;
 @Configuration
 @EnableAsync
 @EnableRetry
+@EnableScheduling
 @EnableTransactionManagement
 public class OrderApplicationConfig implements AsyncConfigurer {
 
@@ -36,6 +41,14 @@ public class OrderApplicationConfig implements AsyncConfigurer {
         executor.setThreadNamePrefix("custom-async-"); // Set the thread name prefix
         executor.initialize();
         return executor;
+    }
+
+    @Bean(name = "taskScheduler")
+    public TaskScheduler taskScheduler() {
+        ThreadPoolTaskScheduler threadPoolTaskScheduler = new ThreadPoolTaskScheduler();
+        threadPoolTaskScheduler.setPoolSize(3);
+        threadPoolTaskScheduler.setThreadNamePrefix("ThreadPoolTaskScheduler");
+        return threadPoolTaskScheduler;
     }
 
     @Override
