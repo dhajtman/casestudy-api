@@ -24,6 +24,7 @@ import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@DirtiesContext
 public class CustomAsyncExceptionHandlerTest {
 
     @Autowired
@@ -36,7 +37,7 @@ public class CustomAsyncExceptionHandlerTest {
     private ApplicationAvailability applicationAvailability;
 
     @Test
-    @DirtiesContext
+//    @DirtiesContext
     public void testAsyncCreate() throws InterruptedException, ExecutionException {
         Ordered order = Ordered.builder().product("Java").build();
 
