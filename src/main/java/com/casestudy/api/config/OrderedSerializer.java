@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.node.TextNode;
 import org.springframework.boot.jackson.JsonComponent;
 
 import java.io.IOException;
+import java.util.function.Function;
 
 @JsonComponent
 public class OrderedSerializer {
@@ -23,8 +24,10 @@ public class OrderedSerializer {
                               SerializerProvider serializerProvider) throws IOException,
                 JsonProcessingException {
 
+            Function<OrderedNew, String> function = OrderedNew::getProduct;
+            String string = function.apply(ordered);
             jsonGenerator.writeStartObject();
-            jsonGenerator.writeStringField("productSerialized", ordered.getProduct());
+            jsonGenerator.writeStringField("productSerialized", string);
             jsonGenerator.writeEndObject();
         }
     }
@@ -38,8 +41,7 @@ public class OrderedSerializer {
                 throws IOException, JsonProcessingException {
 
             TreeNode treeNode = jsonParser.getCodec().readTree(jsonParser);
-            TextNode productSerialized = (TextNode) treeNode.get(
-                    "productSerialized");
+            TextNode productSerialized = (TextNode) treeNode.get("productSerialized");
             return OrderedNew.builder().product(productSerialized.asText()).build();
         }
     }
