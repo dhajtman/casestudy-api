@@ -2,10 +2,14 @@ package com.casestudy.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component("scheduledTasks")
+@EnableScheduling
+@ConditionalOnProperty(name="scheduling.enabled", havingValue="true", matchIfMissing = false)
 public class OrderedScheduler {
 
     Logger logger = LoggerFactory.getLogger(OrderedScheduler.class);

@@ -4,7 +4,6 @@ import com.casestudy.api.model.Ordered;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 public interface OrderService {
     List<Ordered> getAllOrder();
