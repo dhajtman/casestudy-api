@@ -30,4 +30,4 @@ management:
       enabled: true
 
 scheduling:
-  enabled: true
+  enabled: false

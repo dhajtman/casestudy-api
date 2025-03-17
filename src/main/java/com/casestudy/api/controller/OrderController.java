@@ -19,14 +19,10 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("/order")
 public class OrderController {
-  private final OrderService orderService;
+  @Autowired
+  private OrderService orderService;
 
   Logger logger = LoggerFactory.getLogger(NotifyController.class);
-
-  @Autowired
-  public OrderController(OrderService orderService) {
-    this.orderService = orderService;
-  }
 
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
