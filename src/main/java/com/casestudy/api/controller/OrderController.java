@@ -22,7 +22,7 @@ public class OrderController {
   @Autowired
   private OrderService orderService;
 
-  Logger logger = LoggerFactory.getLogger(NotifyController.class);
+  Logger logger = LoggerFactory.getLogger(OrderController.class);
 
   @GetMapping
   @ResponseStatus(HttpStatus.OK)

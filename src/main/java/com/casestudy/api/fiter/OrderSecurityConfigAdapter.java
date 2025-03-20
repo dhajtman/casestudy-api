@@ -1,5 +1,6 @@
 package com.casestudy.api.fiter;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -31,12 +32,19 @@ public class OrderSecurityConfigAdapter {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry.requestMatchers("/order/**", "/notify/**").permitAll()
+                                .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers("/secured/**").authenticated()
                                 .anyRequest().denyAll()
                 )
                 .httpBasic(Customizer.withDefaults());
+
         http.addFilterAfter(new OrderFilter(), BasicAuthenticationFilter.class);
         http.csrf().disable();
+
+        // add this line to use H2 web console
+        http.headers().frameOptions().disable();
+
         return http.build();
     }
+
 }
