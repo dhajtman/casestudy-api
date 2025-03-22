@@ -18,6 +18,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
@@ -39,6 +40,9 @@ public class DefaultNotifyServiceTest {
     @Mock
     private RestTemplate restTemplate;
 
+    @Mock
+    private RestClient restClient;
+
     @InjectMocks
     private DefaultNotifyService notifyService;
 
@@ -54,8 +58,33 @@ public class DefaultNotifyServiceTest {
         when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), eq(String.class)))
                 .thenReturn(ResponseEntity.ok().build());
 
-        notifyService.orderNotify();
+        ResponseEntity<String> response = notifyService.orderNotify();
 
+        Assertions.assertTrue(response.getStatusCode().is2xxSuccessful());
+        verify(databaseService).updateOrderNotified(order);
+    }
+
+    @Test
+    void orderNotify_shouldNotifyOrdersNew() {
+        Ordered order = Ordered.builder().id(1L).product("Java").build();
+        List<Ordered> orders = Collections.singletonList(order);
+
+        when(databaseService.getUnnoticedOrders()).thenReturn(orders);
+        when(environment.getProperty("notify-service.url", "http://localhost:8000/notify"))
+                .thenReturn("http://localhost:8000/notify");
+
+        RestClient.RequestBodyUriSpec requestBodyUriSpec = mock(RestClient.RequestBodyUriSpec.class);
+        RestClient.RequestBodySpec requestBodySpec = mock(RestClient.RequestBodySpec.class);
+        RestClient.ResponseSpec responseSpec = mock(RestClient.ResponseSpec.class);
+        when(restClient.post()).thenReturn(requestBodyUriSpec);
+        when(requestBodyUriSpec.uri(anyString())).thenReturn(requestBodySpec);
+        when(requestBodySpec.body(any(Ordered.class))).thenReturn(requestBodySpec);
+        when(requestBodySpec.retrieve()).thenReturn(responseSpec);
+        when(responseSpec.toEntity(String.class)).thenReturn(ResponseEntity.ok().build());
+
+        ResponseEntity<String> response = notifyService.orderNotifyNew();
+
+        Assertions.assertTrue(response.getStatusCode().is2xxSuccessful());
         verify(databaseService).updateOrderNotified(order);
     }
 

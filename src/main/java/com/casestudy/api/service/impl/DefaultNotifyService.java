@@ -34,6 +34,9 @@ public class DefaultNotifyService implements NotifyService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private RestClient restClient;
+
     Logger logger = LoggerFactory.getLogger(DefaultNotifyService.class);
 
     @Override
@@ -53,8 +56,6 @@ public class DefaultNotifyService implements NotifyService {
 
     @Override
     public ResponseEntity<String> orderNotifyNew() {
-        RestClient restClient = RestClient.create();
-
         List<Ordered> unnoticedOrders = databaseService.getUnnoticedOrders();
 
         for (Ordered ordered: unnoticedOrders) {
@@ -62,7 +63,6 @@ public class DefaultNotifyService implements NotifyService {
             String url = environment.getProperty("notify-service.url", "http://localhost:8000/notify");
 
             ResponseEntity<String> response = restClient.post().uri(url).body(ordered).retrieve().toEntity(String.class);
-//            restTemplate.exchange(url, HttpMethod.POST, request, String.class);
             databaseService.updateOrderNotified(ordered);
         }
         return ResponseEntity.ok().build();
