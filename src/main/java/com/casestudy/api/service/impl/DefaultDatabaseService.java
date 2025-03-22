@@ -46,6 +46,12 @@ public class DefaultDatabaseService implements DatabaseService {
   }
 
   @Override
+  @Transactional(readOnly = false, propagation= Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
+  public Ordered updateOrder(Ordered ordered) {
+    return orderRepository.save(ordered);
+  }
+
+  @Override
   public Optional<Ordered> getOrderById(Long id) {
     return orderRepository.findById(id);
   }

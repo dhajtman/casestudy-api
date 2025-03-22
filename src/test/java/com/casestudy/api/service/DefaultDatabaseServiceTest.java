@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -19,10 +20,9 @@ public class DefaultDatabaseServiceTest {
 
     @Test
     @DirtiesContext
-    public void testAsyncCreate() throws InterruptedException, ExecutionException {
+    public void testCreate() {
         Ordered order = Ordered.builder().product("Java").build();
         databaseService.createNewOrder(order);
-        Thread.sleep(2000);
         List<Ordered> orderedList = databaseService.getAllOrder();
         Assertions.assertEquals(4, orderedList.size());
     }
@@ -32,5 +32,30 @@ public class DefaultDatabaseServiceTest {
     public void testGetAll() {
         List<Ordered> orderedList = databaseService.getAllOrder();
         Assertions.assertEquals(3, orderedList.size());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testUpdate() {
+        Optional<Ordered> orderHolder = databaseService.getOrderById(Integer.toUnsignedLong(1));
+        orderHolder.ifPresent(order -> {
+            order.setProduct("JavaNew");
+            Ordered ordered = databaseService.updateOrder(order);
+            Assertions.assertEquals("JavaNew", ordered.getProduct());
+        });
+
+        orderHolder = databaseService.getOrderById(Integer.toUnsignedLong(1));
+        orderHolder.ifPresent(order -> {
+            Assertions.assertEquals("JavaNew", order.getProduct());
+        });
+    }
+
+    @Test
+    @DirtiesContext
+    public void testGetById() {
+        Optional<Ordered> order = databaseService.getOrderById(Integer.toUnsignedLong(1));
+
+        Assertions.assertTrue(order.isPresent());
+        Assertions.assertEquals(1, order.get().getId());
     }
 }

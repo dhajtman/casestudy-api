@@ -4,3 +4,6 @@ server:
 spring:
   jpa:
     defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true

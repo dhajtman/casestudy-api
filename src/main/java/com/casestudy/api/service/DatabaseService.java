@@ -18,4 +18,6 @@ public interface DatabaseService {
   Optional<Ordered> getOrderById(Long id);
 
   void deleteById(Long id);
+
+  Ordered updateOrder(Ordered ordered);
 }
