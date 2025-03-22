@@ -37,14 +37,14 @@ public class DefaultDatabaseServiceTest {
     @Test
     @DirtiesContext
     public void testUpdate() {
-        Optional<Ordered> orderHolder = databaseService.getOrderById(Integer.toUnsignedLong(1));
+        Optional<Ordered> orderHolder = databaseService.getOrderById(1L);
         orderHolder.ifPresent(order -> {
             order.setProduct("JavaNew");
             Ordered ordered = databaseService.updateOrder(order);
             Assertions.assertEquals("JavaNew", ordered.getProduct());
         });
 
-        orderHolder = databaseService.getOrderById(Integer.toUnsignedLong(1));
+        orderHolder = databaseService.getOrderById(1L);
         orderHolder.ifPresent(order -> {
             Assertions.assertEquals("JavaNew", order.getProduct());
         });
@@ -53,7 +53,7 @@ public class DefaultDatabaseServiceTest {
     @Test
     @DirtiesContext
     public void testGetById() {
-        Optional<Ordered> order = databaseService.getOrderById(Integer.toUnsignedLong(1));
+        Optional<Ordered> order = databaseService.getOrderById(1L);
 
         Assertions.assertTrue(order.isPresent());
         Assertions.assertEquals(1, order.get().getId());

@@ -39,10 +39,11 @@ public class OrderSecurityConfigAdapter {
                 .httpBasic(Customizer.withDefaults());
 
         http.addFilterAfter(new OrderFilter(), BasicAuthenticationFilter.class);
-        http.csrf().disable();
+        http.csrf(csrf -> csrf.disable());
 //        http.csrf(csrf -> csrf.ignoringRequestMatchers(PathRequest.toH2Console()));
         // add this line to use H2 web console
-        http.headers().frameOptions().disable();
+        http.headers(httpSecurityHeadersConfigurer ->
+                httpSecurityHeadersConfigurer.frameOptions(frameOptionsConfig -> frameOptionsConfig.disable()));
 
         return http.build();
     }

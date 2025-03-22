@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -30,16 +31,10 @@ public class DefaultNotifyService implements NotifyService {
     @Autowired
     private DatabaseService databaseService;
 
-    private final RestTemplate restTemplate;
+    @Autowired
+    private RestTemplate restTemplate;
 
     Logger logger = LoggerFactory.getLogger(DefaultNotifyService.class);
-
-    @Autowired
-    public DefaultNotifyService(RestTemplateBuilder restTemplateBuilder) {
-        restTemplate = restTemplateBuilder
-                .errorHandler(new RestTemplateResponseErrorHandler())
-                .build();
-    }
 
     @Override
     @Retryable(retryFor = {NotifyServiceUnreachableException.class, NotifyServiceTimeoutException.class})
@@ -50,7 +45,24 @@ public class DefaultNotifyService implements NotifyService {
             HttpEntity<Ordered> request = new HttpEntity<>(ordered);
             String url = environment.getProperty("notify-service.url", "http://localhost:8000/notify");
 
-            restTemplate.exchange(url, HttpMethod.POST, request, String.class);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
+            databaseService.updateOrderNotified(ordered);
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<String> orderNotifyNew() {
+        RestClient restClient = RestClient.create();
+
+        List<Ordered> unnoticedOrders = databaseService.getUnnoticedOrders();
+
+        for (Ordered ordered: unnoticedOrders) {
+            HttpEntity<Ordered> request = new HttpEntity<>(ordered);
+            String url = environment.getProperty("notify-service.url", "http://localhost:8000/notify");
+
+            ResponseEntity<String> response = restClient.post().uri(url).body(ordered).retrieve().toEntity(String.class);
+//            restTemplate.exchange(url, HttpMethod.POST, request, String.class);
             databaseService.updateOrderNotified(ordered);
         }
         return ResponseEntity.ok().build();
