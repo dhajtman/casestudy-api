@@ -35,6 +35,16 @@ public class DefaultOrderService implements OrderService {
     }
 
     @Override
+    public void orderNotifyNew() {
+        ResponseEntity<String> response = notifyService.orderNotifyNew();
+    }
+
+    @Override
+    public void orderNotify() {
+        ResponseEntity<String> response = notifyService.orderNotify();
+    }
+
+    @Override
     public Optional<Ordered> getOrderById(Long id) {
         return databaseService.getOrderById(id);
     }

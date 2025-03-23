@@ -10,10 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @DirtiesContext
 class NotifyControllerTest {
@@ -33,5 +34,16 @@ class NotifyControllerTest {
 
         Assertions.assertNotNull(response);
         Assertions.assertTrue(response.contains("Java"));
+    }
+
+    @Test
+    public void testTest() throws Exception {
+        String response = mockMvc.perform(get("/notify/test")
+                        .contentType("application/json"))
+                .andDo(print())
+                .andReturn().getResponse().getContentAsString();
+
+        Assertions.assertNotNull(response);
+        Assertions.assertTrue(response.contains("Test"));
     }
 }

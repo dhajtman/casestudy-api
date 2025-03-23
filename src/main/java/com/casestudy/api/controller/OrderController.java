@@ -43,6 +43,24 @@ public class OrderController {
     return new ResponseEntity<>(new OrderResponse("Order creation queued: " + ordered.getProduct()), HttpStatus.ACCEPTED);
   }
 
+  @GetMapping("/notify")
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<OrderResponse> orderNotify() {
+    logger.info("Processing unnoticed orders with restTemplate");
+    orderService.orderNotify();
+
+    return new ResponseEntity<>(new OrderResponse("Unnoticed orders processed"), HttpStatus.OK);
+  }
+
+  @GetMapping("/notifyNew")
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<OrderResponse> orderNotifyNew() {
+    logger.info("Processing unnoticed orders with restClient");
+    orderService.orderNotifyNew();
+
+    return new ResponseEntity<>(new OrderResponse("Unnoticed orders processed"), HttpStatus.OK);
+  }
+
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Ordered getOrder(@PathVariable("id") long id) {

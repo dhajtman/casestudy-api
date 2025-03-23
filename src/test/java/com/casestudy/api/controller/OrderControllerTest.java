@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @DirtiesContext
 class OrderControllerTest {
@@ -62,5 +62,27 @@ class OrderControllerTest {
                 .andDo(print())
                 .andReturn().getResponse().getContentAsString(), om.getTypeFactory().constructCollectionType(List.class, Ordered.class));
         Assertions.assertEquals(3, actualRecord.size());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testNotify() throws Exception {
+        String response = mockMvc.perform(get("/order/notify")
+                        .contentType("application/json"))
+                .andDo(print()).andExpect(status().is2xxSuccessful())
+                .andReturn().getResponse().getContentAsString();
+
+        Assertions.assertNotNull(response);
+    }
+
+    @Test
+    @DirtiesContext
+    public void testNotifyNew() throws Exception {
+        String response = mockMvc.perform(get("/order/notifyNew")
+                        .contentType("application/json"))
+                .andDo(print()).andExpect(status().is2xxSuccessful())
+                .andReturn().getResponse().getContentAsString();
+
+        Assertions.assertNotNull(response);
     }
 }

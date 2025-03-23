@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext
 public class DefaultOrderServiceTest {
 

@@ -15,14 +15,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/notify")
 public class NotifyController {
 
-  Logger logger = LoggerFactory.getLogger(NotifyController.class);
+    Logger logger = LoggerFactory.getLogger(NotifyController.class);
 
-  @PostMapping
-  @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<NotifyResponse> notify(@RequestBody Ordered ordered) {
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<NotifyResponse> notify(@RequestBody Ordered ordered) {
+        logger.info("Notified of {}", ordered.getProduct());
 
-    logger.info("Notified of {}", ordered.getProduct());
+        return new ResponseEntity<>(new NotifyResponse("Notified: " + ordered.getProduct()), HttpStatus.OK);
+    }
 
-    return new ResponseEntity<>(new NotifyResponse("Notified: " + ordered.getProduct()), HttpStatus.OK);
-  }
+    @GetMapping("/test")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<NotifyResponse> test() {
+        logger.info("Test");
+
+        return new ResponseEntity<>(new NotifyResponse("Test"), HttpStatus.OK);
+    }
 }

@@ -16,49 +16,50 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class DefaultDatabaseService implements DatabaseService {
-  private final OrderRepository orderRepository;
+    private final OrderRepository orderRepository;
 
-  @Autowired
-  DefaultDatabaseService(OrderRepository orderRepository) {
-    this.orderRepository = orderRepository;
-  }
+    @Autowired
+    DefaultDatabaseService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
 
-  @Override
-  public List<Ordered> getAllOrder() {
-    return new ArrayList<>(orderRepository.findAll());
-  }
+    @Override
+    public List<Ordered> getAllOrder() {
+        return new ArrayList<>(orderRepository.findAll());
+    }
 
-  @Override
-  public List<Ordered> getUnnoticedOrders() {
-    return new ArrayList<>(orderRepository.findByNotifiedFalse());
-  }
+    @Override
+    public List<Ordered> getUnnoticedOrders() {
+        return new ArrayList<>(orderRepository.findByNotifiedFalse());
+    }
 
-  @Override
-  public void updateOrderNotified(Ordered ordered) {
-    ordered.setNotified(true);
-    orderRepository.save(ordered);
-  }
+    @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
+    public Ordered updateOrderNotified(Ordered ordered) {
+        ordered.setNotified(true);
+        return orderRepository.save(ordered);
+    }
 
-  @Override
-  @Transactional(readOnly = false, propagation= Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
-  public Ordered createNewOrder(Ordered ordered) {
-      return orderRepository.save(ordered);
-  }
+    @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
+    public Ordered createNewOrder(Ordered ordered) {
+        return orderRepository.save(ordered);
+    }
 
-  @Override
-  @Transactional(readOnly = false, propagation= Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
-  public Ordered updateOrder(Ordered ordered) {
-    return orderRepository.save(ordered);
-  }
+    @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
+    public Ordered updateOrder(Ordered ordered) {
+        return orderRepository.save(ordered);
+    }
 
-  @Override
-  public Optional<Ordered> getOrderById(Long id) {
-    return orderRepository.findById(id);
-  }
+    @Override
+    public Optional<Ordered> getOrderById(Long id) {
+        return orderRepository.findById(id);
+    }
 
-  @Override
-  @Transactional(readOnly = false, propagation= Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
-  public void deleteById(Long id) {
-    orderRepository.deleteById(id);
-  }
+    @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)
+    public void deleteById(Long id) {
+        orderRepository.deleteById(id);
+    }
 }

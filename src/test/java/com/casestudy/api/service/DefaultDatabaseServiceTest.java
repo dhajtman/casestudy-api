@@ -9,9 +9,8 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext
 public class DefaultDatabaseServiceTest {
 

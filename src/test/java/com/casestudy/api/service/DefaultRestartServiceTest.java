@@ -11,7 +11,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext
 class DefaultRestartServiceTest {
 

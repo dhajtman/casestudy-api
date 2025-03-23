@@ -11,7 +11,7 @@ public interface DatabaseService {
 
   List<Ordered> getUnnoticedOrders();
 
-  void updateOrderNotified(Ordered ordered);
+  Ordered updateOrderNotified(Ordered ordered);
 
   Ordered createNewOrder(Ordered ordered);
 
