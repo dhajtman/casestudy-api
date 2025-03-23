@@ -6,4 +6,6 @@ public interface NotifyService {
     ResponseEntity<String> orderNotify();
 
     ResponseEntity<String> orderNotifyNew();
+
+    ResponseEntity<String> orderNotifyJMS();
 }

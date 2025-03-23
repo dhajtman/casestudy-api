@@ -17,4 +17,6 @@ public interface OrderService {
     Optional<Ordered> getOrderById(Long id);
 
     void deleteById(Long id) throws InterruptedException;
+
+    void orderNotifyJMS();
 }

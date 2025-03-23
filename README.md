@@ -65,6 +65,8 @@ Idempotent NotifyService implementation with retry and recover logic
     }
 ```
 
+There are multiple clients to call Notification service, RestTemplate, RestClient and JMS.
+
 * Threading model used are simple asynchronous methods in [OrderService implementation class](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/service/impl/DefaultOrderService.java) configured per method similar to
 ```java
 @Async

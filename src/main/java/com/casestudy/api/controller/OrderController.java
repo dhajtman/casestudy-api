@@ -61,6 +61,15 @@ public class OrderController {
     return new ResponseEntity<>(new OrderResponse("Unnoticed orders processed"), HttpStatus.OK);
   }
 
+  @GetMapping("/notifyJMS")
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<OrderResponse> orderNotifyJMS() {
+    logger.info("Processing unnoticed orders with JMS");
+    orderService.orderNotifyJMS();
+
+    return new ResponseEntity<>(new OrderResponse("Unnoticed orders processed"), HttpStatus.OK);
+  }
+
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Ordered getOrder(@PathVariable("id") long id) {

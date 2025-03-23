@@ -2,6 +2,7 @@ package com.casestudy.api.service.impl;
 
 import com.casestudy.api.exception.NotifyServiceTimeoutException;
 import com.casestudy.api.exception.NotifyServiceUnreachableException;
+import com.casestudy.api.jms.JmsProducer;
 import com.casestudy.api.model.Ordered;
 import com.casestudy.api.service.DatabaseService;
 import com.casestudy.api.service.NotifyService;
@@ -35,6 +36,9 @@ public class DefaultNotifyService implements NotifyService {
     @Autowired
     private RestClient restClient;
 
+    @Autowired
+    private JmsProducer jmsProducer;
+
     Logger logger = LoggerFactory.getLogger(DefaultNotifyService.class);
 
     @Override
@@ -61,6 +65,17 @@ public class DefaultNotifyService implements NotifyService {
             String url = environment.getProperty("notify-service.url", "http://localhost:8000/notify");
 
             ResponseEntity<String> response = restClient.post().uri(url).body(ordered).retrieve().toEntity(String.class);
+            databaseService.updateOrderNotified(ordered);
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<String> orderNotifyJMS() {
+        List<Ordered> unnoticedOrders = databaseService.getUnnoticedOrders();
+
+        for (Ordered ordered: unnoticedOrders) {
+            jmsProducer.sendMessage(ordered.getProduct());
             databaseService.updateOrderNotified(ordered);
         }
         return ResponseEntity.ok().build();

@@ -85,4 +85,15 @@ class OrderControllerTest {
 
         Assertions.assertNotNull(response);
     }
+
+    @Test
+    @DirtiesContext
+    public void testNotifyJMS() throws Exception {
+        String response = mockMvc.perform(get("/order/notifyJMS")
+                        .contentType("application/json"))
+                .andDo(print()).andExpect(status().is2xxSuccessful())
+                .andReturn().getResponse().getContentAsString();
+
+        Assertions.assertNotNull(response);
+    }
 }
