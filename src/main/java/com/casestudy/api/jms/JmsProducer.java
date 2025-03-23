@@ -1,5 +1,6 @@
 package com.casestudy.api.jms;
 
+import com.casestudy.api.model.Ordered;
 import com.casestudy.api.service.impl.DefaultNotifyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +16,9 @@ public class JmsProducer {
 
     Logger logger = LoggerFactory.getLogger(JmsProducer.class);
 
-    public void sendMessage(String message) {
-        logger.info("Sending message: {}", message);
+    public void sendOrder(Ordered ordered) {
+        logger.info("Sending order: {}", ordered);
 
-        this.jmsMessagingTemplate.convertAndSend("test.queue", message);
+        this.jmsMessagingTemplate.convertAndSend("test.queue", ordered);
     }
 }

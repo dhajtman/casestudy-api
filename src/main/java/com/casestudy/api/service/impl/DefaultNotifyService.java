@@ -75,7 +75,7 @@ public class DefaultNotifyService implements NotifyService {
         List<Ordered> unnoticedOrders = databaseService.getUnnoticedOrders();
 
         for (Ordered ordered: unnoticedOrders) {
-            jmsProducer.sendMessage(ordered.getProduct());
+            jmsProducer.sendOrder(ordered);
             databaseService.updateOrderNotified(ordered);
         }
         return ResponseEntity.ok().build();
