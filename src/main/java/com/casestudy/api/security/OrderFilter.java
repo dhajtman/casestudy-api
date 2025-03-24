@@ -1,4 +1,4 @@
-package com.casestudy.api.fiter;
+package com.casestudy.api.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
