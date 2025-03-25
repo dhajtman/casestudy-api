@@ -91,6 +91,25 @@ public Executor getAsyncExecutor() {
 }
 ```
 
+There are multiple ways to proceed requests asynchronously, for example using Callable, DeferredResult and @Async annotation.
+@Async annotation is managed by Spring Boot.
+Callable and DeferredResult are managed by servlet container.
+```java
+    @GetMapping(value = "/testCallable")
+    public Callable<String> testCallable() {
+        logger.info("Start thread id: " + Thread.currentThread().getName());
+        Callable<String> callable = () -> {
+            logger.info("Callable thread id1: " + Thread.currentThread().getName());
+            Thread.sleep(3000);
+            logger.info("Callable thread id2: " + Thread.currentThread().getName());
+            return "Test...";
+        };
+        logger.info("End thread id: " + Thread.currentThread().getName());
+        return callable;
+    }
+```
+More implementation in [AsyncOrderController](https://github.com/dhajtman/casestudy-api/blob/master/src/main/java/com/casestudy/api/controller/AsyncOrderController.java) class.
+
 If RuntimeException is thrown during async processing liveness and readiness state is updated in CustomAsyncExceptionHandler class
 ```java
     @Override
