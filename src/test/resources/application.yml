@@ -7,3 +7,6 @@ spring:
   h2:
     console:
       enabled: true
+
+notify-service:
+  url: http://localhost:8001/notify

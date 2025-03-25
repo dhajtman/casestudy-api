@@ -1,6 +1,6 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.service.impl.DefaultRestartService;
+import com.casestudy.api.service.RestartService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ public class RestartController {
     Logger logger = LoggerFactory.getLogger(RestartController.class);
 
     @Autowired
-    private DefaultRestartService restartService;
+    private RestartService restartService;
 
     @GetMapping("/secured/restart")
     public void restart1() {

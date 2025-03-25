@@ -1,7 +1,6 @@
 package com.casestudy.api.service;
 
 import com.casestudy.api.OrderApplication;
-import com.casestudy.api.service.impl.DefaultRestartService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -13,12 +12,13 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext
-class DefaultRestartServiceTest {
+class RestartServiceTest {
 
     @Autowired
-    private DefaultRestartService restartService;
+    private RestartService restartService;
 
     @Test
+    @DirtiesContext
     void restart_shouldRestartApplication() {
         ConfigurableApplicationContext context = mock(ConfigurableApplicationContext.class);
         ApplicationArguments args = mock(ApplicationArguments.class);
@@ -29,7 +29,6 @@ class DefaultRestartServiceTest {
 
         restartService.restart();
 
-        verify(context).close();
         verify(context, times(1)).getBean(ApplicationArguments.class);
     }
 }

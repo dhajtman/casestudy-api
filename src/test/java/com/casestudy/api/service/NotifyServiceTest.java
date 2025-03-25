@@ -3,7 +3,6 @@ package com.casestudy.api.service;
 import com.casestudy.api.exception.NotifyServiceTimeoutException;
 import com.casestudy.api.exception.NotifyServiceUnreachableException;
 import com.casestudy.api.model.Ordered;
-import com.casestudy.api.service.impl.DefaultNotifyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -26,7 +25,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext
-public class DefaultNotifyServiceTest {
+public class NotifyServiceTest {
 
     @Mock
     private Environment environment;
@@ -41,7 +40,7 @@ public class DefaultNotifyServiceTest {
     private RestClient restClient;
 
     @InjectMocks
-    private DefaultNotifyService notifyService;
+    private NotifyService notifyService;
 
 
     @Test

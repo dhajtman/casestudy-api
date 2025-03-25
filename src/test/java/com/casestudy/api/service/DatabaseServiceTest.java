@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext
-public class DefaultDatabaseServiceTest {
+public class DatabaseServiceTest {
 
     @Autowired
     private DatabaseService databaseService;

@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext
-public class DefaultOrderServiceTest {
+public class OrderServiceTest {
 
     @Autowired
     private OrderService orderService;

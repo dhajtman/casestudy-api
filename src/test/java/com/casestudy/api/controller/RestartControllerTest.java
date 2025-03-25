@@ -1,6 +1,6 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.service.impl.DefaultRestartService;
+import com.casestudy.api.service.RestartService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ class RestartControllerTest {
     private TestRestTemplate template;
 
     @MockBean
-    private DefaultRestartService restartService;
+    private RestartService restartService;
 
     @Test
     public void testRestart() throws Exception {
