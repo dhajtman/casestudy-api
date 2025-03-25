@@ -1,6 +1,8 @@
 package com.casestudy.api.service;
 
 import com.casestudy.api.model.Ordered;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
@@ -19,21 +21,26 @@ public class OrderService {
     @Autowired
     private NotifyService notifyService;
 
+    Logger logger = LoggerFactory.getLogger(OrderService.class);
+
     public List<Ordered> getAllOrder() {
         return databaseService.getAllOrder();
     }
 
-    @Async
+    @Async("asyncExecutor")
     public void createNewOrder(Ordered ordered) throws InterruptedException {
+        logger.info("Order creation started: " + ordered.getProduct());
         Thread.sleep(1000); // simulating long term operation
         Ordered created = databaseService.createNewOrder(ordered);
         ResponseEntity<String> response = notifyService.orderNotify();
     }
 
+    @Async("asyncExecutor")
     public CompletableFuture<String> createNewOrder2(Ordered ordered) throws InterruptedException {
-        Thread.sleep(1000); // simulating long term operation
-        Ordered created = databaseService.createNewOrder(ordered);
-        ResponseEntity<String> response = notifyService.orderNotify();
+        logger.info("Order2 creation started: " + ordered.getProduct());
+        Thread.sleep(3000); // simulating long term operation
+//        Ordered created = databaseService.createNewOrder(ordered);
+//        ResponseEntity<String> response = notifyService.orderNotify();
         return CompletableFuture.completedFuture("Order creation queued: " + ordered.getProduct());
     }
 

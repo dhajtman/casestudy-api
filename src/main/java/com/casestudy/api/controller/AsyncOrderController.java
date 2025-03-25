@@ -44,8 +44,8 @@ public class AsyncOrderController {
         throw new OrderNotFoundException("not found");
     }
 
-    @GetMapping(value = "/test")
-    public Callable<String> test() {
+    @GetMapping(value = "/testCallable")
+    public Callable<String> testCallable() {
         logger.info("Start thread id: " + Thread.currentThread().getName());
         Callable<String> callable = () -> {
             logger.info("Callable thread id1: " + Thread.currentThread().getName());
@@ -57,8 +57,8 @@ public class AsyncOrderController {
         return callable;
     }
 
-    @GetMapping(value = "/test2")
-    public DeferredResult<String> test2() {
+    @GetMapping(value = "/testDeferredResult1")
+    public DeferredResult<String> testDeferredResult1() {
         logger.info("Start thread id: " + Thread.currentThread().getName());
         DeferredResult<String> deferredResult = new DeferredResult<>();
 
@@ -82,8 +82,8 @@ public class AsyncOrderController {
         return deferredResult;
     }
 
-    @RequestMapping("/test3")
-    public DeferredResult<ResponseEntity<?>> test3(final @RequestParam(value="loanAmount", required=true) Double loanAmount) throws Exception {
+    @RequestMapping("/testDeferredResult2")
+    public DeferredResult<ResponseEntity<?>> testDeferredResult2() throws Exception {
 
         final DeferredResult<ResponseEntity<?>> deferredResult = new DeferredResult<ResponseEntity<?>>(5000l);
         deferredResult.onTimeout(new Runnable() {
@@ -106,8 +106,8 @@ public class AsyncOrderController {
         return deferredResult;
     }
 
-    @GetMapping("/events")
-    public ResponseBodyEmitter handle() {
+    @GetMapping("/testResponseBodyEmitter")
+    public ResponseBodyEmitter testResponseBodyEmitter() {
         ResponseBodyEmitter emitter = new ResponseBodyEmitter();
         new Thread("SleepingThread") {
             public void run() {
