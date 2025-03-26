@@ -11,6 +11,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.concurrent.Executor;
 
@@ -18,14 +20,10 @@ import java.util.concurrent.Executor;
 @EnableAsync
 @EnableRetry
 @EnableTransactionManagement
-public class OrderApplicationConfig implements AsyncConfigurer {
-
-    final private CustomAsyncExceptionHandler asyncExceptionHandler;
+public class OrderApplicationConfig implements AsyncConfigurer, WebMvcConfigurer {
 
     @Autowired
-    public OrderApplicationConfig(CustomAsyncExceptionHandler asyncExceptionHandler) {
-        this.asyncExceptionHandler = asyncExceptionHandler;
-    }
+    private CustomAsyncExceptionHandler asyncExceptionHandler;
 
     @Override
     @Bean(name = "asyncExecutor")
@@ -50,5 +48,19 @@ public class OrderApplicationConfig implements AsyncConfigurer {
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
         return asyncExceptionHandler;
+    }
+
+    @Override
+    public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
+        configurer.setTaskExecutor(mvcTaskExecutor());
+        configurer.setDefaultTimeout(30_000);
+    }
+
+    @Bean(name = "mvcTaskExecutor")
+    public ThreadPoolTaskExecutor mvcTaskExecutor() {
+        ThreadPoolTaskExecutor threadPoolTaskExecutor = new ThreadPoolTaskExecutor();
+        threadPoolTaskExecutor.setCorePoolSize(10);
+        threadPoolTaskExecutor.setThreadNamePrefix("mvc-task-");
+        return threadPoolTaskExecutor;
     }
 }

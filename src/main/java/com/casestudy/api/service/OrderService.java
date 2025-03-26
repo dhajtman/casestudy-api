@@ -60,7 +60,7 @@ public class OrderService {
         return databaseService.getOrderById(id);
     }
 
-    @Async
+    @Async("asyncExecutor")
     public void deleteById(Long id) throws InterruptedException {
         Thread.sleep(2000); // simulating long term operation
         databaseService.deleteById(id);

@@ -29,12 +29,17 @@ public class OrderApplicationConfigTest {
 
     @Test
     public void asyncExecutorBeanPresence() {
-        Object o1 = context.getBean(ThreadPoolTaskExecutor.class);
         Object o2 = context.getBean("asyncExecutor");
 
-        Assertions.assertNotNull(o1);
         Assertions.assertNotNull(o2);
-        Assertions.assertInstanceOf(ThreadPoolTaskExecutor.class, o1);
+        Assertions.assertInstanceOf(ThreadPoolTaskExecutor.class, o2);
+    }
+
+    @Test
+    public void mvcTaskExecutorBeanPresence() {
+        Object o2 = context.getBean("mvcTaskExecutor");
+
+        Assertions.assertNotNull(o2);
         Assertions.assertInstanceOf(ThreadPoolTaskExecutor.class, o2);
     }
 }

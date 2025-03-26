@@ -293,6 +293,162 @@
           "mode": "none"
         }
       }
+    },
+    {
+      "type": "http",
+      "name": "get_orders_async",
+      "filename": "get_orders_async.bru",
+      "seq": 13,
+      "request": {
+        "url": "http://localhost:8000/order/async",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "get_order_1_async",
+      "filename": "get_order_1_async.bru",
+      "seq": 14,
+      "request": {
+        "url": "http://localhost:8000/order/async/1",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "testCallable",
+      "filename": "testCallable.bru",
+      "seq": 15,
+      "request": {
+        "url": "http://localhost:8000/order/async/testCallable",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "testDeferredResult1",
+      "filename": "testDeferredResult1.bru",
+      "seq": 16,
+      "request": {
+        "url": "http://localhost:8000/order/async/testDeferredResult1",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "testResponseBodyEmitter",
+      "filename": "testResponseBodyEmitter.bru",
+      "seq": 17,
+      "request": {
+        "url": "http://localhost:8000/order/async/testResponseBodyEmitter",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "testDeferredResult2",
+      "filename": "testDeferredResult2.bru",
+      "seq": 18,
+      "request": {
+        "url": "http://localhost:8000/order/async/testDeferredResult2",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
     }
   ],
   "environments": [],

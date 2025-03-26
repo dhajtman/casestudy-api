@@ -7,12 +7,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+import reactor.core.publisher.Flux;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.Callable;
@@ -27,14 +33,14 @@ public class AsyncOrderController {
     Logger logger = LoggerFactory.getLogger(AsyncOrderController.class);
 
     @GetMapping()
-    @Async("asyncExecutor")
+    @Async("mvcTaskExecutor")
     @ResponseStatus(HttpStatus.OK)
     public CompletableFuture<List<Ordered>> getAllOrderAsync() {
         return CompletableFuture.completedFuture(orderService.getAllOrder());
     }
 
     @GetMapping("/{id}")
-    @Async("asyncExecutor")
+    @Async("mvcTaskExecutor")
     @ResponseStatus(HttpStatus.OK)
     public CompletableFuture<Ordered> getOrder(@PathVariable("id") long id) {
         Optional<Ordered> order = orderService.getOrderById(id);
@@ -115,7 +121,7 @@ public class AsyncOrderController {
                     for (int i = 0; i < 10; i++) {
                         emitter.send("Test3..." + i);
                         logger.info("Test3..." + i);
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                     }
                     emitter.complete();
                 } catch (Exception e) {
@@ -123,6 +129,43 @@ public class AsyncOrderController {
                 }
             }
         }.start();
+
         return emitter;
+    }
+
+    @GetMapping("/testStreamingResponseBody1")
+    public StreamingResponseBody testStreamingResponseBody1() {
+        StreamingResponseBody stream = out -> {
+            String msg = "/srb" + " @ " + new Date();
+            out.write(msg.getBytes());
+        };
+
+        return stream;
+    }
+
+    @GetMapping("/testStreamingResponseBody2")
+    public ResponseEntity<StreamingResponseBody> testStreamingResponseBody2() {
+        StreamingResponseBody responseBody = response -> {
+            for (int i = 1; i <= 10; i++) {
+                try {
+                    Thread.sleep(500);
+                    response.write(("Data stream line srb - " + i + "\n").getBytes());
+                    response.flush();
+                } catch (InterruptedException e) {
+                    logger.error("Error occurred: " + e);
+                }
+            }
+        };
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.TEXT_PLAIN)
+                .body(responseBody);
+    }
+
+    @GetMapping(value = "/testFlux", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Object> testFlux() {
+        return Flux.range(1, 10)
+                .delayElements(Duration.ofSeconds(1))
+                .map(i -> "Data stream line Flux - " + i);
     }
 }
