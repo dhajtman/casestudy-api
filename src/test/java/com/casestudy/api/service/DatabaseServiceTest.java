@@ -35,6 +35,21 @@ public class DatabaseServiceTest {
 
     @Test
     @DirtiesContext
+    public void testGetAllOrders() {
+        List<Ordered> orderedList = databaseService.getAllOrders();
+        Assertions.assertEquals(3, orderedList.size());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testGetOrderedById() {
+        Ordered ordered = databaseService.getOrderedById(1L);
+        Assertions.assertNotNull(ordered);
+        Assertions.assertEquals(1L, ordered.getId());
+    }
+
+    @Test
+    @DirtiesContext
     public void testUpdate() {
         Optional<Ordered> orderHolder = databaseService.getOrderById(1L);
         orderHolder.ifPresent(order -> {
@@ -56,5 +71,45 @@ public class DatabaseServiceTest {
 
         Assertions.assertTrue(order.isPresent());
         Assertions.assertEquals(1, order.get().getId());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testGetUnnoticedOrders() {
+        List<Ordered> orderedList = databaseService.getUnnoticedOrders();
+
+        Assertions.assertEquals(3, orderedList.size());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testFindByMinQuantity() {
+        List<Ordered> orderedList = databaseService.findByMinQuantity(0);
+        Assertions.assertEquals(3, orderedList.size());
+
+        orderedList = databaseService.findByMinQuantity(11);
+        Assertions.assertEquals(2, orderedList.size());
+
+        orderedList = databaseService.findByMinQuantity(21);
+        Assertions.assertEquals(1, orderedList.size());
+
+        orderedList = databaseService.findByMinQuantity(31);
+        Assertions.assertEquals(0, orderedList.size());
+    }
+
+    @Test
+    @DirtiesContext
+    public void testFindByMaxQuantity() {
+        List<Ordered> orderedList = databaseService.findByMaxQuantity(0);
+        Assertions.assertEquals(0, orderedList.size());
+
+        orderedList = databaseService.findByMaxQuantity(11);
+        Assertions.assertEquals(1, orderedList.size());
+
+        orderedList = databaseService.findByMaxQuantity(21);
+        Assertions.assertEquals(2, orderedList.size());
+
+        orderedList = databaseService.findByMaxQuantity(31);
+        Assertions.assertEquals(3, orderedList.size());
     }
 }
