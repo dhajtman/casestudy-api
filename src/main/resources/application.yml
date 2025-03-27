@@ -29,6 +29,10 @@ spring:
 notify-service:
   url: http://localhost:8000/notify
 
+elasticsearch:
+  url: localhost:9200
+  api-key: REtYMjBaVUJBUHh0SF9lU3ZNSm06UmFUaF9uR1pUOHFwZ2c1eDg1STVxdw==
+
 management:
   endpoints:
     web:

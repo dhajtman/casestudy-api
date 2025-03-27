@@ -39,8 +39,6 @@ public class OrderService {
     public CompletableFuture<String> createNewOrder2(Ordered ordered) throws InterruptedException {
         logger.info("Order2 creation started: " + ordered.getProduct());
         Thread.sleep(3000); // simulating long term operation
-//        Ordered created = databaseService.createNewOrder(ordered);
-//        ResponseEntity<String> response = notifyService.orderNotify();
         return CompletableFuture.completedFuture("Order creation queued: " + ordered.getProduct());
     }
 
