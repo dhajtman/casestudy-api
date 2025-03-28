@@ -10,16 +10,24 @@ public class ElasticService {
     @Autowired
     ElasticsearchOperations operations;
 
-    public void save(OrderedElastic orderedElastic) {
-        operations.save(orderedElastic);
+    public OrderedElastic save(OrderedElastic orderedElastic) {
+        OrderedElastic orderedElastic1 = operations.save(orderedElastic);
+        return orderedElastic1;
     }
 
-    public void delete(String id) {
-        operations.delete(id, OrderedElastic.class);
+    public String delete(String id) {
+        String response = operations.delete(id, OrderedElastic.class);
+        return response;
     }
 
-    public void deleteIndex() {
-        operations.indexOps(OrderedElastic.class).delete();
+    public boolean deleteIndex() {
+        boolean result = operations.indexOps(OrderedElastic.class).delete();
+        return result;
+    }
+
+    public boolean existsIndex() {
+        boolean result = operations.indexOps(OrderedElastic.class).exists();
+        return result;
     }
 
     public OrderedElastic get(String id) {
