@@ -4,11 +4,23 @@ server:
 spring:
   jpa:
     defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
   h2:
     console:
       enabled: true
   main:
     allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+#    url: jdbc:postgresql://localhost:5432/mydb
+#    driverClassName: org.postgresql.Driver
+#    username: postgres
+#    password: password
+  sql:
+    init:
+      mode: always
 
 notify-service:
   url: http://localhost:8001/notify
