@@ -449,6 +449,165 @@
           "mode": "none"
         }
       }
+    },
+    {
+      "type": "http",
+      "name": "testStreamingResponseBody1",
+      "filename": "testStreamingResponseBody1.bru",
+      "seq": 19,
+      "request": {
+        "url": "http://localhost:8000/order/async/testStreamingResponseBody1",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "testStreamingResponseBody2",
+      "filename": "testStreamingResponseBody2.bru",
+      "seq": 20,
+      "request": {
+        "url": "http://localhost:8000/order/async/testStreamingResponseBody2",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "elastic_save",
+      "filename": "elastic_save.bru",
+      "seq": 21,
+      "request": {
+        "url": "http://localhost:8000/elastic",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "elastic_deleteIndex",
+      "filename": "elastic_deleteIndex.bru",
+      "seq": 22,
+      "request": {
+        "url": "http://localhost:8000/elastic/deleteIndex",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "elastic_delete",
+      "filename": "elastic_delete.bru",
+      "seq": 23,
+      "request": {
+        "url": "http://localhost:8000/elastic/11",
+        "method": "DELETE",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "elastic_get",
+      "filename": "elastic_get.bru",
+      "seq": 24,
+      "request": {
+        "url": "http://localhost:8000/elastic/11",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
     }
   ],
   "environments": [],

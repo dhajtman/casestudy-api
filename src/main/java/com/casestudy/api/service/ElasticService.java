@@ -14,4 +14,17 @@ public class ElasticService {
         operations.save(orderedElastic);
     }
 
+    public void delete(String id) {
+        operations.delete(id, OrderedElastic.class);
+    }
+
+    public void deleteIndex() {
+        operations.indexOps(OrderedElastic.class).delete();
+    }
+
+    public OrderedElastic get(String id) {
+        OrderedElastic orderedElastic = operations.get(id, OrderedElastic.class);
+        return orderedElastic;
+    }
+
 }

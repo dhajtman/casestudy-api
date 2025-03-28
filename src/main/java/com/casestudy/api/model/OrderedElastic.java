@@ -13,7 +13,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 public class OrderedElastic {
 
   @Id
-  private int id;
+  private String id;
 
   @Field(type = FieldType.Text, name = "product")
   private String product;
