@@ -1,0 +1,7 @@
+🌐 Open your browser at http://localhost:5601
+
+   Username: elastic
+   Password: SgjHRpTq
+
+🔌 Elasticsearch API endpoint: http://localhost:9200
+🔑 API key: REtYMjBaVUJBUHh0SF9lU3ZNSm06UmFUaF9uR1pUOHFwZ2c1eDg1STVxdw==
