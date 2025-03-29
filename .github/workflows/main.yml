@@ -21,9 +21,9 @@ jobs:
           mvn clean install
           docker build -t case-study-docker .
           # docker run -d --name case-study-api -p 8000:8000 case-study-docker:latest
-      - name: Run elastic service
-        run: |     
-          ./compose-elastic/start.sh
-      - name: Run postgres service
-        run: |     
-          ./compose-postgres/start.sh
+      # - name: Run elastic service
+      #   run: |     
+      #     ./compose-elastic/start.sh
+      # - name: Run postgres service
+      #   run: |     
+      #     ./compose-postgres/start.sh
