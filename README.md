@@ -1,3 +1,5 @@
+# Simple Spring Boot REST API microservice
+
 ## Environment
 - Java version: 17
 - Maven version: 3.*
