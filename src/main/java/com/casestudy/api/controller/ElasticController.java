@@ -1,7 +1,5 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.exception.OrderNotFoundException;
-import com.casestudy.api.model.Ordered;
 import com.casestudy.api.model.OrderedElastic;
 import com.casestudy.api.rest.OrderResponse;
 import com.casestudy.api.service.ElasticService;
@@ -11,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/elastic")
