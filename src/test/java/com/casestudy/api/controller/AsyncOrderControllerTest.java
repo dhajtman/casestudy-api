@@ -2,6 +2,7 @@ package com.casestudy.api.controller;
 
 import com.casestudy.api.model.Ordered;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @DirtiesContext
+@FixMethodOrder
 class AsyncOrderControllerTest {
     @Autowired
     private MockMvc mockMvc;
