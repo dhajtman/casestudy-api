@@ -1,0 +1,18 @@
+{
+  "family": "springboot-task",
+  "containerDefinitions": [
+    {
+      "name": "springboot-container",
+      "image": "241296256890.dkr.ecr.eu-north-1.amazonaws.com/case-study-api:latest",
+      "memory": 512,
+      "cpu": 256,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8000,
+          "hostPort": 8000
+        }
+      ]
+    }
+  ]
+}
