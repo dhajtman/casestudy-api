@@ -31,7 +31,11 @@ public class OrderSecurityConfigAdapter {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                        authorizationManagerRequestMatcherRegistry.requestMatchers("/order/**", "/notify/**", "/elastic/**").permitAll()
+                        authorizationManagerRequestMatcherRegistry
+                                .requestMatchers("/order/**").permitAll()
+                                .requestMatchers("/notify/**").permitAll()
+                                .requestMatchers("/elastic/**").permitAll()
+                                .requestMatchers("/kafka/**").permitAll()
                                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers("/secured/**").authenticated()
                                 .anyRequest().denyAll()

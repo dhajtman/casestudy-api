@@ -3,8 +3,8 @@ server:
 
 logging:
   level:
-#    root: INFO
-    root: DEBUG
+    root: INFO
+#    root: DEBUG
     org.hibernate: INFO
 
 spring:
@@ -29,11 +29,11 @@ spring:
     mode: embedded
   kafka:
     consumer:
-      group-id: tpd-loggers
+      group-id: order-loggers
       auto-offset-reset: earliest
     bootstrap-servers: localhost:9092
 
-tpd:
+kafka:
   topic-name: my-topic
   messages-per-request: 10
 

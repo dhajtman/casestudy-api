@@ -25,6 +25,16 @@ spring:
   sql:
     init:
       mode: always
+  kafka:
+    consumer:
+      group-id: order-loggers
+      auto-offset-reset: earliest
+    bootstrap-servers: localhost:9092
+#      bootstrap-servers: "${spring.embedded.kafka.brokers}"
+
+kafka:
+  topic-name: my-topic
+  messages-per-request: 10
 
 notify-service:
   url: http://localhost:8001/notify
