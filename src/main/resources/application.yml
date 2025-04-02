@@ -27,6 +27,15 @@ spring:
     password: changeme
   artemis:
     mode: embedded
+  kafka:
+    consumer:
+      group-id: tpd-loggers
+      auto-offset-reset: earliest
+    bootstrap-servers: localhost:9092
+
+tpd:
+  topic-name: my-topic
+  messages-per-request: 10
 
 notify-service:
   url: http://localhost:8000/notify

@@ -20,9 +20,9 @@ ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 COPY compose-elastic compose-elastic
 COPY compose-postgres compose-postgres
-COPY script.sh script.sh
-RUN ["chmod", "+x", "script.sh"]
+COPY startup_script.sh startup_script.sh
+RUN ["chmod", "+x", "startup_script.sh"]
 EXPOSE 8000
-ENTRYPOINT ["./script.sh"]
-#CMD ["./script.sh"]
+ENTRYPOINT ["./startup_script.sh"]
+#CMD ["./startup_script.sh"]
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
