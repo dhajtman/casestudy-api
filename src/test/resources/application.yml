@@ -29,7 +29,7 @@ spring:
     consumer:
       group-id: order-loggers
       auto-offset-reset: earliest
-    bootstrap-servers: localhost:9092
+#    bootstrap-servers: localhost:9092
 #      bootstrap-servers: "${spring.embedded.kafka.brokers}"
 
 kafka:
