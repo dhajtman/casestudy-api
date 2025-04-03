@@ -608,6 +608,33 @@
           "mode": "none"
         }
       }
+    },
+    {
+      "type": "http",
+      "name": "kafka_test",
+      "filename": "kafka_test.bru",
+      "seq": 25,
+      "request": {
+        "url": "http://localhost:8000/kafka/test",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
     }
   ],
   "environments": [],

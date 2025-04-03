@@ -16,11 +16,13 @@ ENV PATH="$JAVA_HOME/bin:${PATH}"
 WORKDIR /app
 #RUN addgroup demogroup; adduser  --ingroup demogroup --disabled-password demo
 #USER demo
-ARG JAR_FILE=target/*.jar
+ARG JAR_FILE=../target/*.jar
 COPY ${JAR_FILE} app.jar
-COPY compose-elastic compose-elastic
-COPY compose-postgres compose-postgres
-COPY startup_script.sh startup_script.sh
+RUN ["pwd"]
+COPY ../compose-elastic compose-elastic
+COPY ../compose-kafka compose-kafka
+COPY ../compose-postgres compose-postgres
+COPY ./docker/startup_script.sh startup_script.sh
 RUN ["chmod", "+x", "startup_script.sh"]
 EXPOSE 8000
 ENTRYPOINT ["./startup_script.sh"]

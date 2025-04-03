@@ -1,9 +1,9 @@
-# Simple Spring Boot REST API microservice
+# Simple Spring Boot REST API microservice using ELK, Postgres and Kafka running DinD image 
 
 ## Environment
 - Java version: 17
 - Maven version: 3.*
-- Spring Boot version: 3.0.6
+- Spring Boot version: 3.4.4
 
 ## Case study
 ![case_study.png](case_study.png)
@@ -198,10 +198,10 @@ Restart=always
 WantedBy=multi-user.target
 ```
 
-## Implemented APIs
+## Implemented APIs examples
 Assume there is ordered database and you want to create a REST API to access them.
 
-Base on case study were implemented `/order` REST endpoint.
+Based on case study were implemented `/order` REST endpoint.
 
 `POST` request to `/order`:
 * create order
@@ -212,12 +212,36 @@ Base on case study were implemented `/order` REST endpoint.
 `DELETE` request to `/ordered/{id}`:
 * delete the order with give id
 
-`Test writing`
+### API manual tests
+Full list of REST API tests in Bruno collection in _tests_ folder - [functional tests](https://github.com/dhajtman/casestudy-api/blob/master/tests/test_requests_bruno.json)
+```json
+{
+    "info": {
+        "_postman_id": "c3f1a2b4-0d8e-4b5c-9f7d-6e2a3f5b8c1d",
+        "name": "Bruno",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Create order",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"id\": 1,\n    \"quantity\": \"6\",\n    \"product\": \"WordPress\"\n}"
+                },
+                ...
+            }
+        },
+        ...
+    ]
+}
+```
 
-In addition to implementing the REST endpoints, were written unit and [functional tests](https://github.com/dhajtman/casestudy-api/blob/master/case_study_bruno_requests.json).
 
 ## Commands
-- run: 
+- run: (requires to startup external services before)
 ```bash
 mvn clean spring-boot:run
 ```
@@ -229,11 +253,11 @@ mvn clean install
 ```bash
 mvn clean test
 ```
-- docker build image:
+- docker build image: (build .jar before)
 ```bash
-docker build -t case-study-docker . 
+docker build -t case-study-docker -f docker/Dockerfile .
 ```
-- docker run detached image:
+- docker run detached image: (all in one image)
 ```bash
 docker run --privileged -d --name case-study-api -p 8000:8000 case-study-docker:latest
 ```
