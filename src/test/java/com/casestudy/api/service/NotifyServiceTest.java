@@ -1,5 +1,6 @@
 package com.casestudy.api.service;
 
+import com.casestudy.api.CommonBaseTest;
 import com.casestudy.api.exception.NotifyServiceTimeoutException;
 import com.casestudy.api.exception.NotifyServiceUnreachableException;
 import com.casestudy.api.model.Ordered;
@@ -25,7 +26,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext
-public class NotifyServiceTest {
+public class NotifyServiceTest extends CommonBaseTest {
 
     @Mock
     private Environment environment;

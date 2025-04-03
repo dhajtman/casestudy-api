@@ -1,5 +1,6 @@
 package com.casestudy.api.service;
 
+import com.casestudy.api.CommonBaseTest;
 import com.casestudy.api.OrderApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext
-class RestartServiceTest {
+class RestartServiceTest extends CommonBaseTest {
 
     @Autowired
     private RestartService restartService;

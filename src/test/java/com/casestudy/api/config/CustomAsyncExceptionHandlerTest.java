@@ -1,5 +1,6 @@
 package com.casestudy.api.config;
 
+import com.casestudy.api.CommonBaseTest;
 import com.casestudy.api.exception.RestartRequiredException;
 import com.casestudy.api.model.Ordered;
 import com.casestudy.api.service.DatabaseService;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext
-public class CustomAsyncExceptionHandlerTest {
+public class CustomAsyncExceptionHandlerTest extends CommonBaseTest {
 
     @Autowired
     private OrderService orderService;

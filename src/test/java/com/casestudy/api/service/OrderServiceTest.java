@@ -1,5 +1,6 @@
 package com.casestudy.api.service;
 
+import com.casestudy.api.CommonBaseTest;
 import com.casestudy.api.model.Ordered;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext
-public class OrderServiceTest {
+public class OrderServiceTest extends CommonBaseTest {
 
     @Autowired
     private OrderService orderService;

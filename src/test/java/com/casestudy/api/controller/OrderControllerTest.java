@@ -1,5 +1,6 @@
 package com.casestudy.api.controller;
 
+import com.casestudy.api.CommonBaseTest;
 import com.casestudy.api.model.Ordered;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -22,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureMockMvc
 @DirtiesContext
-class OrderControllerTest {
+class OrderControllerTest extends CommonBaseTest {
     @Autowired
     private MockMvc mockMvc;
 

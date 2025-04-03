@@ -1,5 +1,6 @@
 package com.casestudy.api.service;
 
+import com.casestudy.api.CommonBaseTest;
 import com.casestudy.api.model.Ordered;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ import java.util.Optional;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext
 @Testcontainers
-public class DatabaseServiceTest {
+public class DatabaseServiceTest extends CommonBaseTest {
 
     @Autowired
     private DatabaseService databaseService;

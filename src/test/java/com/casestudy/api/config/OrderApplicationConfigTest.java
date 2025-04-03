@@ -1,5 +1,6 @@
 package com.casestudy.api.config;
 
+import com.casestudy.api.CommonBaseTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 @DirtiesContext
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-public class OrderApplicationConfigTest {
+public class OrderApplicationConfigTest extends CommonBaseTest {
     @Autowired
     ApplicationContext context;
 
