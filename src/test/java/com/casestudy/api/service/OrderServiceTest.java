@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -21,7 +21,7 @@ public class OrderServiceTest {
     @Autowired
     private OrderService orderService;
 
-    @MockBean
+    @MockitoBean
     private NotifyService notifyService;
 
     @Test

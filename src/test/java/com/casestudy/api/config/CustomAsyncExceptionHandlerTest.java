@@ -11,8 +11,8 @@ import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.boot.availability.LivenessState;
 import org.springframework.boot.availability.ReadinessState;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.concurrent.ExecutionException;
 
@@ -25,14 +25,14 @@ public class CustomAsyncExceptionHandlerTest {
     @Autowired
     private OrderService orderService;
 
-    @MockBean
+    @MockitoBean
     private DatabaseService databaseService;
 
     @Autowired
     private ApplicationAvailability applicationAvailability;
 
     @Test
-//    @DirtiesContext
+    @DirtiesContext
     public void testAsyncCreate() throws InterruptedException, ExecutionException {
         Ordered order = Ordered.builder().product("Java").build();
 
