@@ -42,11 +42,8 @@ public class AsyncOrderController {
     @Async("mvcTaskExecutor")
     @ResponseStatus(HttpStatus.OK)
     public CompletableFuture<Ordered> getOrder(@PathVariable("id") long id) {
-        Optional<Ordered> order = orderService.getOrderById(id);
-        if (order.isPresent())
-            return CompletableFuture.completedFuture(order.get());
-
-        throw new OrderNotFoundException("not found");
+        Ordered order = orderService.getOrderById(id);
+        return CompletableFuture.completedFuture(order);
     }
 
     @GetMapping(value = "/testCallable")

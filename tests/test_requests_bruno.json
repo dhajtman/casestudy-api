@@ -635,6 +635,59 @@
           "mode": "none"
         }
       }
+    },
+    {
+      "type": "http",
+      "name": "get_order_10",
+      "filename": "get_order_10.bru",
+      "seq": 26,
+      "request": {
+        "url": "http://localhost:8000/order/10",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "order_delete",
+      "filename": "order_delete.bru",
+      "seq": 27,
+      "request": {
+        "url": "http://localhost:8000/elastic/11",
+        "method": "DELETE",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
     }
   ],
   "environments": [],

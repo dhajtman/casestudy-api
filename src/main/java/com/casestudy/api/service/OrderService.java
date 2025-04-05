@@ -1,5 +1,6 @@
 package com.casestudy.api.service;
 
+import com.casestudy.api.exception.BadRequestException;
 import com.casestudy.api.model.Ordered;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +10,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -54,7 +54,7 @@ public class OrderService {
         ResponseEntity<String> response = notifyService.orderNotifyJMS();
     }
 
-    public Optional<Ordered> getOrderById(Long id) {
+    public Ordered getOrderById(Long id) {
         return databaseService.getOrderById(id);
     }
 

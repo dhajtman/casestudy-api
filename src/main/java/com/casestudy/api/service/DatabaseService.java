@@ -1,5 +1,6 @@
 package com.casestudy.api.service;
 
+import com.casestudy.api.exception.OrderNotFoundException;
 import com.casestudy.api.model.Ordered;
 import com.casestudy.api.repository.OrderHQLRepository;
 import com.casestudy.api.repository.OrderJPARepository;
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -66,8 +66,8 @@ public class DatabaseService {
         return orderJPARepository.save(ordered);
     }
 
-    public Optional<Ordered> getOrderById(Long id) {
-        return orderJPARepository.findById(id);
+    public Ordered getOrderById(Long id) {
+        return orderJPARepository.findById(id).orElseThrow(() -> new OrderNotFoundException("Order not found with id: " + id));
     }
 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ)

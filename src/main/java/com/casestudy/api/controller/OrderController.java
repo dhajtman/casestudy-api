@@ -1,7 +1,6 @@
 package com.casestudy.api.controller;
 
 import com.casestudy.api.exception.BadRequestException;
-import com.casestudy.api.exception.OrderNotFoundException;
 import com.casestudy.api.model.Ordered;
 import com.casestudy.api.rest.OrderResponse;
 import com.casestudy.api.service.OrderService;
@@ -13,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/order")
@@ -32,8 +29,8 @@ public class OrderController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.ACCEPTED)
-  public ResponseEntity<OrderResponse> createOrder(@RequestBody Ordered ordered) throws InterruptedException, ExecutionException {
-    if (ordered.getProduct() == null) {
+  public ResponseEntity<OrderResponse> createOrder(@RequestBody Ordered ordered) throws InterruptedException {
+    if (ordered.getProduct() == null || ordered.getProduct().isEmpty()) {
       throw new BadRequestException("The Product must be provided when creating a new Order");
     }
 
@@ -73,20 +70,12 @@ public class OrderController {
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Ordered getOrder(@PathVariable("id") long id) {
-    Optional<Ordered> order =  orderService.getOrderById(id);
-    if (order.isPresent())
-      return order.get();
-
-    throw new OrderNotFoundException("not found");
+    return   orderService.getOrderById(id);
   }
 
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.ACCEPTED)
   public ResponseEntity<OrderResponse> deleteOrder(@PathVariable("id") long id) throws InterruptedException {
-    Optional<Ordered> order =  orderService.getOrderById(id);
-    if (!order.isPresent())
-      throw new OrderNotFoundException("not found");
-
     logger.info("Deleting order with {}", id);
     orderService.deleteById(id);
 

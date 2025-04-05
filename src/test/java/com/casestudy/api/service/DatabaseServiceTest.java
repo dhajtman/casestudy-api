@@ -63,26 +63,21 @@ public class DatabaseServiceTest extends CommonBaseTest {
     @Test
     @DirtiesContext
     public void testUpdate() {
-        Optional<Ordered> orderHolder = databaseService.getOrderById(1L);
-        orderHolder.ifPresent(order -> {
-            order.setProduct("JavaNew");
-            Ordered ordered = databaseService.updateOrder(order);
-            Assertions.assertEquals("JavaNew", ordered.getProduct());
-        });
+        Ordered order = databaseService.getOrderById(1L);
+        order.setProduct("JavaNew");
+        Ordered ordered = databaseService.updateOrder(order);
+        Assertions.assertEquals("JavaNew", ordered.getProduct());
 
-        orderHolder = databaseService.getOrderById(1L);
-        orderHolder.ifPresent(order -> {
-            Assertions.assertEquals("JavaNew", order.getProduct());
-        });
+        order = databaseService.getOrderById(1L);
+        Assertions.assertEquals("JavaNew", order.getProduct());
     }
 
     @Test
     @DirtiesContext
     public void testGetById() {
-        Optional<Ordered> order = databaseService.getOrderById(1L);
+        Ordered order = databaseService.getOrderById(1L);
 
-        Assertions.assertTrue(order.isPresent());
-        Assertions.assertEquals(1, order.get().getId());
+        Assertions.assertEquals(1, order.getId());
     }
 
     @Test
