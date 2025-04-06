@@ -668,13 +668,40 @@
       "filename": "order_delete.bru",
       "seq": 27,
       "request": {
-        "url": "http://localhost:8000/elastic/11",
+        "url": "http://localhost:8000/order/3",
         "method": "DELETE",
         "headers": [],
         "params": [],
         "body": {
           "mode": "none",
           "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "post_order_not_valid",
+      "filename": "post_order_not_valid.bru",
+      "seq": 28,
+      "request": {
+        "url": "http://localhost:8000/order",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "  {\n    \"product\": \"t\",\n    \"quantity\": 7\n  }",
           "formUrlEncoded": [],
           "multipartForm": [],
           "file": []

@@ -17,8 +17,7 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureMockMvc
@@ -41,6 +40,18 @@ class OrderControllerTest extends CommonBaseTest {
 
         Assertions.assertNotNull(response);
         Assertions.assertTrue(response.contains("Java"));
+    }
+
+    @Test
+    @DirtiesContext
+    public void testPostNotValid() throws Exception {
+        Ordered expectedRecord = Ordered.builder().product("x").build();
+        mockMvc.perform(post("/order")
+                        .contentType("application/json")
+                        .content(om.writeValueAsString(expectedRecord)))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(content().json("{\"product\":\"Product must be between 2 and 50 characters\"}"));
     }
 
     @Test

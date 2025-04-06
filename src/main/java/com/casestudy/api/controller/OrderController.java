@@ -4,6 +4,7 @@ import com.casestudy.api.exception.BadRequestException;
 import com.casestudy.api.model.Ordered;
 import com.casestudy.api.rest.OrderResponse;
 import com.casestudy.api.service.OrderService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,7 @@ public class OrderController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.ACCEPTED)
-  public ResponseEntity<OrderResponse> createOrder(@RequestBody Ordered ordered) throws InterruptedException {
-    if (ordered.getProduct() == null || ordered.getProduct().isEmpty()) {
-      throw new BadRequestException("The Product must be provided when creating a new Order");
-    }
-
+  public ResponseEntity<OrderResponse> createOrder(@Valid @RequestBody Ordered ordered) throws InterruptedException {
     logger.info("Creating new order for {}", ordered.getProduct());
     orderService.createNewOrder(ordered);
 
