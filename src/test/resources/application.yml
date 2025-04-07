@@ -33,7 +33,8 @@ spring:
 #      bootstrap-servers: "${spring.embedded.kafka.brokers}"
 
 kafka:
-  topic-name: my-topic
+  topic-name-string: my-topic-string
+  topic-name-object: my-topic-object
   messages-per-request: 10
 
 notify-service:

@@ -28,13 +28,21 @@ spring:
   artemis:
     mode: embedded
   kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.JsonSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     consumer:
       group-id: order-loggers
       auto-offset-reset: earliest
+#    template:
+#      default-topic: my-topic
     bootstrap-servers: localhost:9092
 
 kafka:
-  topic-name: my-topic
+  topic-name-string: my-topic-string
+  topic-name-object: my-topic-object
   messages-per-request: 10
 
 notify-service:

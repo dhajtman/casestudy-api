@@ -1,6 +1,5 @@
 package com.casestudy.api.service;
 
-import com.casestudy.api.exception.BadRequestException;
 import com.casestudy.api.model.Ordered;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

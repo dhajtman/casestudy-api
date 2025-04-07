@@ -13,7 +13,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @DirtiesContext

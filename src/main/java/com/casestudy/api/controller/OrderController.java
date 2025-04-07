@@ -1,6 +1,5 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.exception.BadRequestException;
 import com.casestudy.api.model.Ordered;
 import com.casestudy.api.rest.OrderResponse;
 import com.casestudy.api.service.OrderService;

@@ -1,9 +1,10 @@
 package com.casestudy.api.controller;
 
+import com.casestudy.api.model.OrderedKafka;
 import com.casestudy.api.rest.OrderResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,35 +20,55 @@ import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping("/kafka")
+@Slf4j
 public class KafkaController {
-    Logger logger = LoggerFactory.getLogger(KafkaController.class);
-    private final KafkaTemplate<String, Object> template;
-    private final String topicName;
+
+    private final KafkaTemplate<String, Object> stringTemplate;
+    private final KafkaTemplate<String, Object> objectTemplate;
+    private final String topicNameString;
+    private final String topicNameObject;
     private final int messagesPerRequest;
 
     public KafkaController(
-            final KafkaTemplate<String, Object> template,
-            @Value("${kafka.topic-name}") final String topicName,
+            @Qualifier("stringKafkaTemplate") final KafkaTemplate<String, Object> stringTemplate,
+            @Qualifier("objectKafkaTemplate") final KafkaTemplate<String, Object> objectTemplate,
+            @Value("${kafka.topic-name-string}") final String topicNameString,
+            @Value("${kafka.topic-name-object}") final String topicNameObject,
             @Value("${kafka.messages-per-request}") final int messagesPerRequest) {
-        this.template = template;
-        this.topicName = topicName;
+        this.stringTemplate = stringTemplate;
+        this.objectTemplate = objectTemplate;
+        this.topicNameString = topicNameString;
+        this.topicNameObject = topicNameObject;
         this.messagesPerRequest = messagesPerRequest;
     }
 
-    @GetMapping("/test")
+    @GetMapping("/testString")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<OrderResponse> test() throws Exception {
+    public ResponseEntity<OrderResponse> testString() throws Exception {
         IntStream.range(0, messagesPerRequest)
-                .forEach(i -> this.template.send(topicName, String.valueOf(i),
+                .forEach(i -> this.stringTemplate.send(topicNameString, String.valueOf(i),
                        "Kafka message " + i)
                 );
-        return new ResponseEntity<>(new OrderResponse("Test Done"), HttpStatus.OK);
+        return new ResponseEntity<>(new OrderResponse("Test String Done"), HttpStatus.OK);
     }
 
-    @KafkaListener(topics = "my-topic", clientIdPrefix = "json",
-            containerFactory = "kafkaListenerContainerFactory")
-    public void listenAsObject(ConsumerRecord<String, String> cr,
-                               @Payload String payload) {
-        logger.info("Received Kafka message key {}: Payload: {} | Record: {}", cr.key(), payload, cr.toString());
+    @GetMapping("/testObject")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<OrderResponse> testObject() throws Exception {
+        IntStream.range(0, messagesPerRequest)
+                .forEach(i -> this.objectTemplate.send(topicNameObject, String.valueOf(i),
+                        new OrderedKafka("Kafka message " + i, i))
+                );
+        return new ResponseEntity<>(new OrderResponse("Test Object Done"), HttpStatus.OK);
+    }
+
+    @KafkaListener(topics = "${kafka.topic-name-string}", containerFactory = "stringKafkaListenerContainerFactory")
+    public void listenAsString(ConsumerRecord<String, String> cr, @Payload String payload) {
+        log.info("Received Kafka String message key {}: Payload: {} | Record: {}", cr.key(), payload, cr.toString());
+    }
+
+    @KafkaListener(topics = "${kafka.topic-name-object}", containerFactory = "objectKafkaListenerContainerFactory")
+    public void listenAsObject(ConsumerRecord<String, OrderedKafka> cr, @Payload OrderedKafka payload) {
+        log.info("Received Kafka Object message key {}: Payload: {} | Record: {}", cr.key(), payload, cr.toString());
     }
 }

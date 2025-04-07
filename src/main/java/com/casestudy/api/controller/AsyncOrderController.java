@@ -1,6 +1,5 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.exception.OrderNotFoundException;
 import com.casestudy.api.model.Ordered;
 import com.casestudy.api.service.OrderService;
 import org.slf4j.Logger;
@@ -19,7 +18,6 @@ import reactor.core.publisher.Flux;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 
