@@ -36,6 +36,7 @@ public class OrderSecurityConfigAdapter {
                                 .requestMatchers("/notify/**").permitAll()
                                 .requestMatchers("/elastic/**").permitAll()
                                 .requestMatchers("/kafka/**").permitAll()
+                                .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
                                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers("/secured/**").authenticated()
                                 .anyRequest().denyAll()

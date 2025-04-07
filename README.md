@@ -239,6 +239,8 @@ Full list of REST API tests in Bruno collection in _tests_ folder - [functional 
 }
 ```
 
+### Swagger UI
+Access application Swagger UI at: http://localhost:8000/swagger-ui/index.html
 
 ## Commands
 - run: (requires to startup external services before)
