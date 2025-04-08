@@ -1,7 +1,7 @@
 # Simple Spring Boot REST API microservice using ELK, Postgres and Kafka running DinD image 
 
 ## Environment
-- Java version: 17
+- Java version: 21
 - Maven version: 3.*
 - Spring Boot version: 3.4.4
 
