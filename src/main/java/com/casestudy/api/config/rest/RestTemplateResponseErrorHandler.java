@@ -1,4 +1,4 @@
-package com.casestudy.api.rest;
+package com.casestudy.api.config.rest;
 
 import com.casestudy.api.exception.NotifyServiceTimeoutException;
 import com.casestudy.api.exception.NotifyServiceUnreachableException;

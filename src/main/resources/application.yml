@@ -43,6 +43,9 @@ spring:
 kafka:
   topic-name-string: my-topic-string
   topic-name-object: my-topic-object
+  stream-input-topic: input-topic
+  stream-output-topic: output-topic
+  stream-filtered-topic: filtered-topic
   messages-per-request: 10
 
 notify-service:

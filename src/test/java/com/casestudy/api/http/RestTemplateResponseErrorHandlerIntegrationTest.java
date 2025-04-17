@@ -1,5 +1,6 @@
-package com.casestudy.api.rest;
+package com.casestudy.api.http;
 
+import com.casestudy.api.config.rest.RestTemplateResponseErrorHandler;
 import com.casestudy.api.exception.NotifyServiceTimeoutException;
 import com.casestudy.api.exception.NotifyServiceUnreachableException;
 import com.casestudy.api.model.Ordered;

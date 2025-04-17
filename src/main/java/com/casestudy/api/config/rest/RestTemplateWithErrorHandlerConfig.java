@@ -1,4 +1,4 @@
-package com.casestudy.api.rest;
+package com.casestudy.api.config.rest;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;

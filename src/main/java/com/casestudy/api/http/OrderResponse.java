@@ -1,4 +1,4 @@
-package com.casestudy.api.rest;
+package com.casestudy.api.http;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

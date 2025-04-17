@@ -4,11 +4,13 @@ import com.casestudy.api.CommonBaseTest;
 import com.casestudy.api.model.OrderedKafka;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
@@ -24,6 +26,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
@@ -69,8 +72,7 @@ public class KafkaControllerTest extends CommonBaseTest {
 
     @Test
     @DirtiesContext
-    void testListenAsString() {
-        String topic = "my-topic-string";
+    void testListenAsString(@Value("${kafka.topic-name-string}") String topic) {
         String message = "Test String message";
         stringKafkaTemplate.send(topic, "key", message);
 
@@ -88,8 +90,7 @@ public class KafkaControllerTest extends CommonBaseTest {
 
     @Test
     @DirtiesContext
-    void testListenAsObject() {
-        String topic = "my-topic-object";
+    void testListenAsObject(@Value("${kafka.topic-name-object}") String topic) {
         OrderedKafka message = new OrderedKafka("Test Object message", 1);
         objectKafkaTemplate.send(topic, "key", message);
 
@@ -105,5 +106,36 @@ public class KafkaControllerTest extends CommonBaseTest {
         ConsumerRecord<String, OrderedKafka> received = KafkaTestUtils.getSingleRecord(consumer, topic);
 
         assertThat(received.value()).isEqualTo(message);
+    }
+
+    @Test
+    @DirtiesContext
+    void testSendToInputTopic(@Value("${kafka.stream-input-topic}") String inputTopic,
+                              @Value("${kafka.messages-per-request}") int messagesPerRequest) throws Exception {
+        // Perform the GET request to the endpoint
+        mockMvc.perform(get("/kafka/sendToInputTopic")
+                        .contentType("application/json"))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        // Configure Kafka consumer properties
+        Map<String, Object> consumerProps = KafkaTestUtils.consumerProps("testGroup", "true", embeddedKafkaBroker);
+        consumerProps.put("key.deserializer", StringDeserializer.class.getName());
+        consumerProps.put("value.deserializer", StringDeserializer.class.getName());
+
+        // Create a Kafka consumer
+        DefaultKafkaConsumerFactory<String, String> consumerFactory = new DefaultKafkaConsumerFactory<>(consumerProps);
+        Consumer<String, String> consumer = consumerFactory.createConsumer();
+        embeddedKafkaBroker.consumeFromAnEmbeddedTopic(consumer, inputTopic);
+
+        // Validate the messages sent to the topic
+        ConsumerRecords<String, String> records = KafkaTestUtils.getRecords(consumer);
+        assertThat(records.count()).isEqualTo(messagesPerRequest);
+
+        int index = 0;
+        for (ConsumerRecord<String, String> record : records) {
+            assertThat(record.value()).contains("Input message " + index);
+            index++;
+        }
     }
 }

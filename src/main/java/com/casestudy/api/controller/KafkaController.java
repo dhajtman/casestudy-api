@@ -1,7 +1,7 @@
 package com.casestudy.api.controller;
 
 import com.casestudy.api.model.OrderedKafka;
-import com.casestudy.api.rest.OrderResponse;
+import com.casestudy.api.http.OrderResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,7 +47,7 @@ public class KafkaController {
     public ResponseEntity<OrderResponse> testString() throws Exception {
         IntStream.range(0, messagesPerRequest)
                 .forEach(i -> this.stringTemplate.send(topicNameString, String.valueOf(i),
-                       "Kafka message " + i)
+                        "Kafka message " + i)
                 );
         return new ResponseEntity<>(new OrderResponse("Test String Done"), HttpStatus.OK);
     }
@@ -70,5 +70,13 @@ public class KafkaController {
     @KafkaListener(topics = "${kafka.topic-name-object}", containerFactory = "objectKafkaListenerContainerFactory")
     public void listenAsObject(ConsumerRecord<String, OrderedKafka> cr, @Payload OrderedKafka payload) {
         log.info("Received Kafka Object message key {}: Payload: {} | Record: {}", cr.key(), payload, cr.toString());
+    }
+
+    @GetMapping("/sendToInputTopic")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<OrderResponse> sendToInputTopic(@Value("${kafka.messages-per-request}") int messagesPerRequest) {
+        IntStream.range(0, messagesPerRequest)
+                .forEach(i -> this.stringTemplate.send("input-topic", String.valueOf(i), "Input message " + i + " " + System.currentTimeMillis()));
+        return new ResponseEntity<>(new OrderResponse("Messages sent to input-topic"), HttpStatus.OK);
     }
 }
