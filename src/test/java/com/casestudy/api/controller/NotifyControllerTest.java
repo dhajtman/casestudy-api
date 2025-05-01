@@ -1,6 +1,5 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.CommonBaseTest;
 import com.casestudy.api.model.Ordered;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @DirtiesContext
-class NotifyControllerTest extends CommonBaseTest {
+class NotifyControllerTest {
     @Autowired
     private MockMvc mockMvc;
 

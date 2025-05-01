@@ -1,6 +1,6 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.CommonBaseTest;
+import com.casestudy.api.KafkaCommonBaseTest;
 import com.casestudy.api.model.OrderedKafka;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @DirtiesContext
-public class KafkaControllerTest extends CommonBaseTest {
+public class KafkaControllerTest extends KafkaCommonBaseTest {
     @Autowired
     private MockMvc mockMvc;
 

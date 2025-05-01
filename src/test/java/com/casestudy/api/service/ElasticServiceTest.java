@@ -1,6 +1,5 @@
 package com.casestudy.api.service;
 
-import com.casestudy.api.CommonBaseTest;
 import com.casestudy.api.OrderApplication;
 import com.casestudy.api.model.OrderedElastic;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,7 @@ import org.testcontainers.utility.DockerImageName;
         classes = { OrderApplication.class, ElasticServiceTest.TestConfiguration.class })
 @Testcontainers
 @DirtiesContext
-public class ElasticServiceTest extends CommonBaseTest {
+public class ElasticServiceTest {
 
     @Container
     private static final ElasticsearchContainer container = new ElasticsearchContainer(

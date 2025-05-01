@@ -1,6 +1,5 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.CommonBaseTest;
 import com.casestudy.api.model.Ordered;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.FixMethodOrder;
@@ -24,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @DirtiesContext
 @FixMethodOrder
-class AsyncOrderControllerTest extends CommonBaseTest {
+class AsyncOrderControllerTest {
     @Autowired
     private MockMvc mockMvc;
 

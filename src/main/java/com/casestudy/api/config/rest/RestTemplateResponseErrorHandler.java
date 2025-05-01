@@ -2,12 +2,14 @@ package com.casestudy.api.config.rest;
 
 import com.casestudy.api.exception.NotifyServiceTimeoutException;
 import com.casestudy.api.exception.NotifyServiceUnreachableException;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.ResponseErrorHandler;
 
 import java.io.IOException;
+import java.net.URI;
 
 @Component
 public class RestTemplateResponseErrorHandler implements ResponseErrorHandler {
@@ -19,7 +21,7 @@ public class RestTemplateResponseErrorHandler implements ResponseErrorHandler {
     }
 
     @Override
-    public void handleError(ClientHttpResponse httpResponse) throws IOException {
+    public void handleError(URI uri, HttpMethod method, ClientHttpResponse httpResponse) throws IOException {
         if (httpResponse.getStatusCode().is5xxServerError()) {
             //Handle SERVER_ERROR
             if (httpResponse.getStatusCode() == HttpStatus.SERVICE_UNAVAILABLE) {

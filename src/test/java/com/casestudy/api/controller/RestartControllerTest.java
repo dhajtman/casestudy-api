@@ -1,6 +1,5 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.CommonBaseTest;
 import com.casestudy.api.service.RestartService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -23,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureMockMvc
 @DirtiesContext
-class RestartControllerTest extends CommonBaseTest {
+class RestartControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
