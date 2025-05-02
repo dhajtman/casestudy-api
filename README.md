@@ -250,6 +250,11 @@ Access application Swagger UI at: http://localhost:8000/swagger-ui/index.html
 ./compose-vault/start.sh
 ```
 
+## Expired ElasticSearch license
+```bash
+curl -X POST "http://localhost:9200/_license/start_basic?acknowledge=true" -u elastic:SgjHRpTq
+```
+
 ## Commands
 - run: (requires to startup external services before)
 ```bash

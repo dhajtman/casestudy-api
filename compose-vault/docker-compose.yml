@@ -1,7 +1,7 @@
 services:
   vault:
     image: hashicorp/vault:latest
-    container_name: vault
+    container_name: ${VAULT_LOCAL_CONTAINER_NAME}
     ports:
       - "8200:8200"
     environment:
