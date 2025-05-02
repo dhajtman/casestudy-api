@@ -1,7 +1,7 @@
 # Simple Spring Boot REST API microservice using ELK, Postgres and Kafka running DinD image 
 
 ## Environment
-- Java version: 21
+- Java version: 17
 - Maven version: 3.*
 - Spring Boot version: 3.4.4
 
@@ -241,6 +241,14 @@ Full list of REST API tests in Bruno collection in _tests_ folder - [functional 
 
 ### Swagger UI
 Access application Swagger UI at: http://localhost:8000/swagger-ui/index.html
+
+## Start Docker services
+```bash
+./compose-elastic/start.sh
+./compose-postgres/start.sh
+./compose-kafka/start.sh
+./compose-vault/start.sh
+```
 
 ## Commands
 - run: (requires to startup external services before)
