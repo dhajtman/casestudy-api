@@ -2,6 +2,10 @@ server:
   port: 8001
 
 spring:
+  cloud:
+    vault:
+      token: root
+      uri: http://localhost:8200
   jpa:
     defer-datasource-initialization: true
     hibernate:

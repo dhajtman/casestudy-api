@@ -1,0 +1,8 @@
+#spring:
+#  cloud:
+#    vault:
+#      token: root
+#      host: localhost
+#      port: 8200
+#      scheme: http
+#      uri: http://localhost:8200

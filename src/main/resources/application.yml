@@ -5,9 +5,16 @@ logging:
   level:
     root: INFO
 #    root: DEBUG
-    org.hibernate: INFO
+    org:
+      hibernate: INFO
+#      springframework: DEBUG
+#        vault: DEBUG
 
 spring:
+  cloud:
+    vault:
+      token: root
+      uri: http://localhost:8200
   jpa:
     defer-datasource-initialization: true
     open-in-view: true
