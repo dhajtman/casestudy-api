@@ -56,6 +56,113 @@
     },
     {
       "type": "http",
+      "name": "elastic_delete",
+      "filename": "elastic_delete.bru",
+      "seq": 23,
+      "request": {
+        "url": "http://localhost:8000/elastic/11",
+        "method": "DELETE",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "elastic_deleteIndex",
+      "filename": "elastic_deleteIndex.bru",
+      "seq": 22,
+      "request": {
+        "url": "http://localhost:8000/elastic/deleteIndex",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "elastic_get",
+      "filename": "elastic_get.bru",
+      "seq": 24,
+      "request": {
+        "url": "http://localhost:8000/elastic/11",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "elastic_save",
+      "filename": "elastic_save.bru",
+      "seq": 21,
+      "request": {
+        "url": "http://localhost:8000/elastic",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
       "name": "get_order_1",
       "filename": "get_order_1.bru",
       "seq": 8,
@@ -82,11 +189,274 @@
     },
     {
       "type": "http",
+      "name": "get_order_10",
+      "filename": "get_order_10.bru",
+      "seq": 26,
+      "request": {
+        "url": "http://localhost:8000/order/10",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "get_order_1_async",
+      "filename": "get_order_1_async.bru",
+      "seq": 14,
+      "request": {
+        "url": "http://localhost:8000/order/async/1",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
       "name": "get_orders",
       "filename": "get_orders.bru",
       "seq": 7,
       "request": {
         "url": "http://localhost:8000/order",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "get_orders_async",
+      "filename": "get_orders_async.bru",
+      "seq": 13,
+      "request": {
+        "url": "http://localhost:8000/order/async",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "kafka_sendToInputTopic",
+      "filename": "kafka_sendToInputTopic.bru",
+      "seq": 30,
+      "request": {
+        "url": "http://localhost:8000/kafka/sendToInputTopic",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "kafka_test",
+      "filename": "kafka_test.bru",
+      "seq": 25,
+      "request": {
+        "url": "http://localhost:8000/kafka/test",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "notify_test",
+      "filename": "notify_test.bru",
+      "seq": 10,
+      "request": {
+        "url": "http://localhost:8000/notify/test",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "order_delete",
+      "filename": "order_delete.bru",
+      "seq": 27,
+      "request": {
+        "url": "http://localhost:8000/order/3",
+        "method": "DELETE",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "order_notify",
+      "filename": "order_notify.bru",
+      "seq": 9,
+      "request": {
+        "url": "http://localhost:8000/order/notify",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "order_notifyJMS",
+      "filename": "order_notifyJMS.bru",
+      "seq": 12,
+      "request": {
+        "url": "http://localhost:8000/order/notifyJMS",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "order_notifyNew",
+      "filename": "order_notifyNew.bru",
+      "seq": 11,
+      "request": {
+        "url": "http://localhost:8000/order/notifyNew",
         "method": "GET",
         "headers": [],
         "params": [],
@@ -162,8 +532,35 @@
     },
     {
       "type": "http",
-      "name": "restart",
-      "filename": "restart.bru",
+      "name": "post_order_not_valid",
+      "filename": "post_order_not_valid.bru",
+      "seq": 28,
+      "request": {
+        "url": "http://localhost:8000/order",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "  {\n    \"product\": \"t\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "secured_restart",
+      "filename": "secured_restart.bru",
       "seq": 7,
       "request": {
         "url": "http://localhost:8000/secured/restart",
@@ -192,11 +589,11 @@
     },
     {
       "type": "http",
-      "name": "order_notify",
-      "filename": "order_notify.bru",
-      "seq": 9,
+      "name": "secured_test",
+      "filename": "secured_test.bru",
+      "seq": 29,
       "request": {
-        "url": "http://localhost:8000/order/notify",
+        "url": "http://localhost:8000/secured/test",
         "method": "GET",
         "headers": [],
         "params": [],
@@ -212,137 +609,11 @@
         "tests": "",
         "docs": "",
         "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "notify_test",
-      "filename": "notify_test.bru",
-      "seq": 10,
-      "request": {
-        "url": "http://localhost:8000/notify/test",
-        "method": "GET",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "formUrlEncoded": [],
-          "multipartForm": [],
-          "file": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [],
-        "tests": "",
-        "docs": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "order_notifyNew",
-      "filename": "order_notifyNew.bru",
-      "seq": 11,
-      "request": {
-        "url": "http://localhost:8000/order/notifyNew",
-        "method": "GET",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "formUrlEncoded": [],
-          "multipartForm": [],
-          "file": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [],
-        "tests": "",
-        "docs": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "order_notifyJMS",
-      "filename": "order_notifyJMS.bru",
-      "seq": 12,
-      "request": {
-        "url": "http://localhost:8000/order/notifyJMS",
-        "method": "GET",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "formUrlEncoded": [],
-          "multipartForm": [],
-          "file": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [],
-        "tests": "",
-        "docs": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "get_orders_async",
-      "filename": "get_orders_async.bru",
-      "seq": 13,
-      "request": {
-        "url": "http://localhost:8000/order/async",
-        "method": "GET",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "formUrlEncoded": [],
-          "multipartForm": [],
-          "file": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [],
-        "tests": "",
-        "docs": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "get_order_1_async",
-      "filename": "get_order_1_async.bru",
-      "seq": 14,
-      "request": {
-        "url": "http://localhost:8000/order/async/1",
-        "method": "GET",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "formUrlEncoded": [],
-          "multipartForm": [],
-          "file": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [],
-        "tests": "",
-        "docs": "",
-        "auth": {
-          "mode": "none"
+          "mode": "basic",
+          "basic": {
+            "username": "",
+            "password": ""
+          }
         }
       }
     },
@@ -400,11 +671,11 @@
     },
     {
       "type": "http",
-      "name": "testResponseBodyEmitter",
-      "filename": "testResponseBodyEmitter.bru",
-      "seq": 17,
+      "name": "testDeferredResult2",
+      "filename": "testDeferredResult2.bru",
+      "seq": 18,
       "request": {
-        "url": "http://localhost:8000/order/async/testResponseBodyEmitter",
+        "url": "http://localhost:8000/order/async/testDeferredResult2",
         "method": "GET",
         "headers": [],
         "params": [],
@@ -426,11 +697,11 @@
     },
     {
       "type": "http",
-      "name": "testDeferredResult2",
-      "filename": "testDeferredResult2.bru",
-      "seq": 18,
+      "name": "testResponseBodyEmitter",
+      "filename": "testResponseBodyEmitter.bru",
+      "seq": 17,
       "request": {
-        "url": "http://localhost:8000/order/async/testDeferredResult2",
+        "url": "http://localhost:8000/order/async/testResponseBodyEmitter",
         "method": "GET",
         "headers": [],
         "params": [],
@@ -504,204 +775,84 @@
     },
     {
       "type": "http",
-      "name": "elastic_save",
-      "filename": "elastic_save.bru",
-      "seq": 21,
+      "name": "elastic_license",
+      "filename": "elastic_license.bru",
+      "seq": 31,
       "request": {
-        "url": "http://localhost:8000/elastic",
+        "url": "http://localhost:9200/_license/start_basic?acknowledge=true",
+        "method": "POST",
+        "headers": [],
+        "params": [
+          {
+            "name": "acknowledge",
+            "value": "true",
+            "type": "query",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "none",
+          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "basic",
+          "basic": {
+            "username": "elastic",
+            "password": "SgjHRpTq"
+          }
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "vault_read",
+      "filename": "vault_read.bru",
+      "seq": 32,
+      "request": {
+        "url": "http://localhost:8000/vault/read",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "text",
+          "json": "{\n    \"path\": \"secret/test\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
+          "text": "secret/data/test",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "none"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "vault_write",
+      "filename": "vault_write.bru",
+      "seq": 33,
+      "request": {
+        "url": "http://localhost:8000/vault/write",
         "method": "POST",
         "headers": [],
         "params": [],
         "body": {
           "mode": "json",
-          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
-          "formUrlEncoded": [],
-          "multipartForm": [],
-          "file": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [],
-        "tests": "",
-        "docs": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "elastic_deleteIndex",
-      "filename": "elastic_deleteIndex.bru",
-      "seq": 22,
-      "request": {
-        "url": "http://localhost:8000/elastic/deleteIndex",
-        "method": "POST",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "formUrlEncoded": [],
-          "multipartForm": [],
-          "file": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [],
-        "tests": "",
-        "docs": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "elastic_delete",
-      "filename": "elastic_delete.bru",
-      "seq": 23,
-      "request": {
-        "url": "http://localhost:8000/elastic/11",
-        "method": "DELETE",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
-          "formUrlEncoded": [],
-          "multipartForm": [],
-          "file": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [],
-        "tests": "",
-        "docs": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "elastic_get",
-      "filename": "elastic_get.bru",
-      "seq": 24,
-      "request": {
-        "url": "http://localhost:8000/elastic/11",
-        "method": "GET",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
-          "formUrlEncoded": [],
-          "multipartForm": [],
-          "file": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [],
-        "tests": "",
-        "docs": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "kafka_test",
-      "filename": "kafka_test.bru",
-      "seq": 25,
-      "request": {
-        "url": "http://localhost:8000/kafka/test",
-        "method": "GET",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
-          "formUrlEncoded": [],
-          "multipartForm": [],
-          "file": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [],
-        "tests": "",
-        "docs": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "get_order_10",
-      "filename": "get_order_10.bru",
-      "seq": 26,
-      "request": {
-        "url": "http://localhost:8000/order/10",
-        "method": "GET",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "formUrlEncoded": [],
-          "multipartForm": [],
-          "file": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [],
-        "tests": "",
-        "docs": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "order_delete",
-      "filename": "order_delete.bru",
-      "seq": 27,
-      "request": {
-        "url": "http://localhost:8000/order/3",
-        "method": "DELETE",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "none",
-          "json": "{\n    \"id\": \"11\",\n    \"product\": \"test\",\n    \"quantity\": 7\n  }",
-          "formUrlEncoded": [],
-          "multipartForm": [],
-          "file": []
-        },
-        "script": {},
-        "vars": {},
-        "assertions": [],
-        "tests": "",
-        "docs": "",
-        "auth": {
-          "mode": "none"
-        }
-      }
-    },
-    {
-      "type": "http",
-      "name": "post_order_not_valid",
-      "filename": "post_order_not_valid.bru",
-      "seq": 28,
-      "request": {
-        "url": "http://localhost:8000/order",
-        "method": "POST",
-        "headers": [],
-        "params": [],
-        "body": {
-          "mode": "json",
-          "json": "  {\n    \"product\": \"t\",\n    \"quantity\": 7\n  }",
+          "json": "{\n  \"path\": \"secret/data/test\",\n  \"data\": {\n    \"key1\": \"value1\",\n    \"key2\": \"value2\"\n  }\n}",
+          "text": "secret/data/test",
           "formUrlEncoded": [],
           "multipartForm": [],
           "file": []
@@ -726,7 +877,7 @@
       "node_modules",
       ".git"
     ],
-    "size": 0.0009527206420898438,
-    "filesCount": 7
+    "size": 0.004487037658691406,
+    "filesCount": 29
   }
 }
