@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-@DirtiesContext
+//@DirtiesContext
 public class KafkaControllerTest extends KafkaCommonBaseTest {
     @Autowired
     private MockMvc mockMvc;

@@ -11,6 +11,7 @@ logging:
 #        vault: DEBUG
 
 spring:
+  test.context.failure-threshold: 5
   cloud:
     vault:
       token: root
