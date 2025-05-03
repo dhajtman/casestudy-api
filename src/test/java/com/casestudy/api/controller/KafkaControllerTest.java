@@ -1,6 +1,5 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.KafkaCommonBaseTest;
 import com.casestudy.api.model.OrderedKafka;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -17,6 +16,7 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
+import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,7 +30,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-public class KafkaControllerTest extends KafkaCommonBaseTest {
+@EmbeddedKafka(partitions = 1,
+        brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" },
+        topics = {"${kafka.topic-name-string}", "${kafka.topic-name-object}", "${kafka.stream-input-topic}"
+                , "${kafka.stream-output-topic}", "${kafka.stream-filtered-topic}"})
+public class KafkaControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
