@@ -2,6 +2,7 @@ server:
   port: 8001
 
 spring:
+  test.context.failure-threshold: 5
   cloud:
     vault:
       token: root
