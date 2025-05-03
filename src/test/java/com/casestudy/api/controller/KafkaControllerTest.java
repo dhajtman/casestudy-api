@@ -19,6 +19,7 @@ import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Map;
@@ -30,10 +31,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
-@EmbeddedKafka(partitions = 1,
-        brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" },
-        topics = {"${kafka.topic-name-string}", "${kafka.topic-name-object}", "${kafka.stream-input-topic}"
-                , "${kafka.stream-output-topic}", "${kafka.stream-filtered-topic}"})
+@EmbeddedKafka(partitions = 1, ports = 0, topics = {
+        "${kafka.topic-name-string}",
+        "${kafka.topic-name-object}",
+        "${kafka.stream-input-topic}",
+        "${kafka.stream-output-topic}",
+        "${kafka.stream-filtered-topic}"
+})
+@TestPropertySource(properties = {
+        "spring.kafka.bootstrap-servers=${spring.embedded.kafka.brokers}"
+})
 public class KafkaControllerTest {
     @Autowired
     private MockMvc mockMvc;

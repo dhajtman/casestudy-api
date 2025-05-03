@@ -43,7 +43,7 @@ kafka:
   stream-input-topic: input-topic
   stream-output-topic: output-topic
   stream-filtered-topic: filtered-topic
-  messages-per-request: 10
+  messages-per-request: 3
 
 notify-service:
   url: http://localhost:8001/notify
