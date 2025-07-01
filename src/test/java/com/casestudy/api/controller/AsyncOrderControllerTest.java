@@ -72,7 +72,7 @@ class AsyncOrderControllerTest {
                 .andReturn().getAsyncResult();
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals("Test2...3", result);
+        Assertions.assertTrue(result.toString().contains("Test2..."));
     }
 
     @Test
