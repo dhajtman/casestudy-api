@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
 
 @RestController
 @RequestMapping("/order/async")
@@ -60,7 +61,7 @@ public class AsyncOrderController {
     @GetMapping(value = "/testDeferredResult1")
     public DeferredResult<String> testDeferredResult1() {
         logger.info("Start thread id: " + Thread.currentThread().getName());
-        DeferredResult<String> deferredResult = new DeferredResult<>();
+        DeferredResult<String> deferredResult = new DeferredResult<>(10000L);
 
         new Thread("SleepingThread") {
             public void run() {
@@ -85,7 +86,7 @@ public class AsyncOrderController {
     @RequestMapping("/testDeferredResult2")
     public DeferredResult<ResponseEntity<?>> testDeferredResult2() throws Exception {
 
-        final DeferredResult<ResponseEntity<?>> deferredResult = new DeferredResult<ResponseEntity<?>>(5000l);
+        final DeferredResult<ResponseEntity<?>> deferredResult = new DeferredResult<ResponseEntity<?>>(10000L);
         deferredResult.onTimeout(new Runnable() {
             @Override
             public void run() { // Retry on timeout
@@ -108,7 +109,7 @@ public class AsyncOrderController {
 
     @GetMapping("/testResponseBodyEmitter")
     public ResponseBodyEmitter testResponseBodyEmitter() {
-        ResponseBodyEmitter emitter = new ResponseBodyEmitter();
+        ResponseBodyEmitter emitter = new ResponseBodyEmitter(10000L);
         new Thread("SleepingThread") {
             public void run() {
                 try {
