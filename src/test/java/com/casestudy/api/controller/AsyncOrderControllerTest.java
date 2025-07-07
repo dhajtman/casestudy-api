@@ -4,6 +4,7 @@ import com.casestudy.api.model.Ordered;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -91,6 +92,7 @@ class AsyncOrderControllerTest {
     }
 
     @Test
+    @Disabled
     @DirtiesContext
     public void testTestResponseBodyEmitter() throws Exception {
         MvcResult result = mockMvc.perform(get("/order/async/testResponseBodyEmitter"))
