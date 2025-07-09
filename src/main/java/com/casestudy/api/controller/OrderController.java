@@ -1,7 +1,7 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.model.Ordered;
 import com.casestudy.api.http.OrderResponse;
+import com.casestudy.api.model.Ordered;
 import com.casestudy.api.service.OrderService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;

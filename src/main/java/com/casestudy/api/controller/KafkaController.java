@@ -1,7 +1,7 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.model.OrderedKafka;
 import com.casestudy.api.http.OrderResponse;
+import com.casestudy.api.model.OrderedKafka;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Qualifier;

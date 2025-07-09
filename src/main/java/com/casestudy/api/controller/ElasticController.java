@@ -1,7 +1,7 @@
 package com.casestudy.api.controller;
 
-import com.casestudy.api.model.OrderedElastic;
 import com.casestudy.api.http.OrderResponse;
+import com.casestudy.api.model.OrderedElastic;
 import com.casestudy.api.service.ElasticService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

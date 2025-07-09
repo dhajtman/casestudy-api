@@ -1,19 +1,19 @@
 package com.casestudy.api.service;
 
-    import org.junit.jupiter.api.BeforeEach;
-    import org.junit.jupiter.api.Test;
-    import org.mockito.InjectMocks;
-    import org.mockito.Mock;
-    import org.mockito.MockitoAnnotations;
-    import org.springframework.vault.core.VaultTemplate;
-    import org.springframework.vault.support.VaultResponse;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.vault.core.VaultTemplate;
+import org.springframework.vault.support.VaultResponse;
 
-    import java.util.Map;
+import java.util.Map;
 
-    import static org.junit.jupiter.api.Assertions.assertEquals;
-    import static org.junit.jupiter.api.Assertions.assertNull;
-    import static org.mockito.ArgumentMatchers.eq;
-    import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
 
     class VaultServiceTest {
 
